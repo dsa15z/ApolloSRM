@@ -1,10 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="8" fill="#073763"/>
-  <path d="M16 4L22 24H10L16 4Z" fill="#2794EB" stroke="#52AAF0" stroke-width="0.5"/>
-  <circle cx="16" cy="12" r="2.5" fill="#073763" stroke="#52AAF0" stroke-width="0.5"/>
-  <path d="M12 24L10 28H14L12 24Z" fill="#2794EB" opacity="0.7"/>
-  <path d="M20 24L18 28H22L20 24Z" fill="#2794EB" opacity="0.7"/>
-  <path d="M15 24L14 28H18L17 24Z" fill="#52AAF0" opacity="0.5"/>
-  <path d="M10 18C8 17 7 15 7 15L10 20Z" fill="#2794EB" opacity="0.8"/>
-  <path d="M22 18C24 17 25 15 25 15L22 20Z" fill="#2794EB" opacity="0.8"/>
+  <rect width="32" height="32" rx="7" fill="#0b1a2e"/>
+  <g fill="white" transform="translate(2,2) scale(0.233)">
+    <!-- Rocket body -->
+    <path d="M72 6C72 6 65.5 10 57 19.5C48.5 29 42 40 40 47.5C38 55 37.5 59.5 37.5 59.5L47 69L56.5 78.5C56.5 78.5 61 78 68.5 76C76 74 87 67.5 96.5 58C106 48.5 110 40 110 40C97 27 84 14 72 6Z"/>
+    <!-- Window ring -->
+    <circle cx="72" cy="42" r="8" fill="#0b1a2e"/>
+    <circle cx="72" cy="42" r="5.5" fill="white"/>
+    <circle cx="72" cy="42" r="4" fill="#0b1a2e"/>
+    <!-- Left fin -->
+    <path d="M37 59C37 59 25 60.5 15.5 70.5C15.5 70.5 17 80 21.5 85C21.5 75.5 28.5 68 37.5 64.5L37 59Z"/>
+    <!-- Bottom fin -->
+    <path d="M57 79C57 79 55.5 91 65.5 100.5C65.5 100.5 75.5 99 80 94.5C70.5 94.5 63 87.5 60 79L57 79Z"/>
+    <!-- Exhaust trails -->
+    <path d="M6 114C6 114 16 92 36 72" fill="none" stroke="white" stroke-width="5" stroke-linecap="round"/>
+    <path d="M14 110C14 110 22 92 38 76" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    <path d="M22 105C22 105 30 90 42 80" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
 </svg>

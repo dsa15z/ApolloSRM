@@ -1,42 +1,55 @@
 interface LogoProps {
   className?: string;
   size?: number;
+  /** Color variant: "white" for dark backgrounds, "dark" for light backgrounds */
+  variant?: "white" | "dark";
 }
 
-export function LogoIcon({ className = "", size = 32 }: LogoProps) {
+export function LogoIcon({ className = "", size = 32, variant }: LogoProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 32 32"
-      fill="none"
+      viewBox="0 0 120 120"
       width={size}
       height={size}
       className={className}
       aria-hidden="true"
     >
-      {/* Rocket body */}
-      <path
-        d="M16 3L22 23H10L16 3Z"
-        fill="url(#rocketGrad)"
-        stroke="#52AAF0"
-        strokeWidth="0.5"
-      />
-      {/* Window */}
-      <circle cx="16" cy="11" r="2.5" fill="#073763" stroke="#52AAF0" strokeWidth="0.5" />
-      {/* Left fin */}
-      <path d="M10 17C7.5 16 6 13.5 6 13.5L10 20Z" fill="#2794EB" opacity="0.8" />
-      {/* Right fin */}
-      <path d="M22 17C24.5 16 26 13.5 26 13.5L22 20Z" fill="#2794EB" opacity="0.8" />
-      {/* Exhaust flames */}
-      <path d="M12 23L10 28H14L12 23Z" fill="#52AAF0" opacity="0.6" />
-      <path d="M16 23L14.5 29H17.5L16 23Z" fill="#2794EB" opacity="0.8" />
-      <path d="M20 23L18 28H22L20 23Z" fill="#52AAF0" opacity="0.6" />
-      <defs>
-        <linearGradient id="rocketGrad" x1="16" y1="3" x2="16" y2="23" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#52AAF0" />
-          <stop offset="1" stopColor="#2794EB" />
-        </linearGradient>
-      </defs>
+      <g fill={variant === "dark" ? "#0b1a2e" : "currentColor"}>
+        {/* Rocket body */}
+        <path d="M72 6C72 6 65.5 10 57 19.5C48.5 29 42 40 40 47.5C38 55 37.5 59.5 37.5 59.5L47 69L56.5 78.5C56.5 78.5 61 78 68.5 76C76 74 87 67.5 96.5 58C106 48.5 110 40 110 40C97 27 84 14 72 6Z" />
+        {/* Window (porthole) — cut out */}
+        <circle cx="72" cy="42" r="8" fill={variant === "dark" ? "white" : "#031225"} />
+        <circle cx="72" cy="42" r="5.5" fill={variant === "dark" ? "#0b1a2e" : "currentColor"} />
+        {/* Left fin */}
+        <path d="M37 59C37 59 25 60.5 15.5 70.5C15.5 70.5 17 80 21.5 85C21.5 75.5 28.5 68 37.5 64.5L37 59Z" />
+        {/* Bottom fin */}
+        <path d="M57 79C57 79 55.5 91 65.5 100.5C65.5 100.5 75.5 99 80 94.5C70.5 94.5 63 87.5 60 79L57 79Z" />
+        {/* Exhaust trail 1 — outermost sweep */}
+        <path
+          d="M6 114C6 114 16 92 36 72"
+          fill="none"
+          stroke={variant === "dark" ? "#0b1a2e" : "currentColor"}
+          strokeWidth="4.5"
+          strokeLinecap="round"
+        />
+        {/* Exhaust trail 2 — middle sweep */}
+        <path
+          d="M14 110C14 110 22 92 38 76"
+          fill="none"
+          stroke={variant === "dark" ? "#0b1a2e" : "currentColor"}
+          strokeWidth="3.8"
+          strokeLinecap="round"
+        />
+        {/* Exhaust trail 3 — innermost sweep */}
+        <path
+          d="M22 105C22 105 30 90 42 80"
+          fill="none"
+          stroke={variant === "dark" ? "#0b1a2e" : "currentColor"}
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </g>
     </svg>
   );
 }
