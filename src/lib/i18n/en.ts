@@ -338,6 +338,13 @@ const en = {
     noteBasicCRM: "Basic",
     noteGenericLMS: "Generic",
     noteAPIFirst: "API-first",
+    noteCampusIvy: "Campus Ivy",
+    noteAuthorizeNet: "Authorize.net",
+    noteRuleBased: "Rule-based",
+    noteNativeApp: "Native app",
+    noteSSO: "SSO only",
+    noteMoodlePlus: "Moodle +",
+    noteQuickBooks: "QuickBooks",
     // Legend
     legendIncluded: "Included",
     legendPartial: "Partial / Limited",

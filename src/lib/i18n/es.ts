@@ -341,6 +341,13 @@ const es: Dictionary = {
     noteBasicCRM: "Básico",
     noteGenericLMS: "Genérico",
     noteAPIFirst: "API-first",
+    noteCampusIvy: "Campus Ivy",
+    noteAuthorizeNet: "Authorize.net",
+    noteRuleBased: "Basado en reglas",
+    noteNativeApp: "App nativa",
+    noteSSO: "Solo SSO",
+    noteMoodlePlus: "Moodle +",
+    noteQuickBooks: "QuickBooks",
     // Leyenda
     legendIncluded: "Incluido",
     legendPartial: "Parcial / Limitado",

@@ -6,14 +6,14 @@ import { useI18n } from "@/lib/i18n/context";
 
 type Status = "yes" | "no" | "partial" | "addon";
 
+interface CompetitorCell {
+  status: Status;
+  note?: string;
+}
+
 interface ComparisonRow {
   feature: string;
-  apollo: Status;
-  diamond: Status;
-  studentFirst: Status;
-  apolloNote?: string;
-  diamondNote?: string;
-  studentFirstNote?: string;
+  competitors: CompetitorCell[];
 }
 
 interface ComparisonCategory {
@@ -61,92 +61,112 @@ function StatusIcon({ status, note }: { status: Status; note?: string }) {
 export default function ComparisonMatrix() {
   const { t } = useI18n();
 
+  const competitorNames = [
+    { name: "ApolloSRM", highlight: true },
+    { name: "Diamond SIS", highlight: false },
+    { name: "StudentFirst", highlight: false },
+    { name: "Portico", highlight: false },
+    { name: "Orbund", highlight: false },
+  ];
+
+  // Helper: [apollo, diamond, studentFirst, portico, orbund]
+  const r = (
+    feature: string,
+    cells: [CompetitorCell, CompetitorCell, CompetitorCell, CompetitorCell, CompetitorCell]
+  ): ComparisonRow => ({ feature, competitors: cells });
+  const y = (note?: string): CompetitorCell => ({ status: "yes", note });
+  const n = (note?: string): CompetitorCell => ({ status: "no", note });
+  const p = (note?: string): CompetitorCell => ({ status: "partial", note });
+  const a = (note?: string): CompetitorCell => ({ status: "addon", note });
+
   const categories: ComparisonCategory[] = [
     {
       category: t.comparison.catCore,
       rows: [
-        { feature: t.comparison.studentRecords, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.enrollmentMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.attendanceTracking, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.gradeManagement, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.documentMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.multiCampus, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLimited, studentFirst: "yes", studentFirstNote: t.comparison.noteMultiInstitution },
+        r(t.comparison.studentRecords, [y(), y(), y(), y(), y()]),
+        r(t.comparison.enrollmentMgmt, [y(), y(), y(), y(), y()]),
+        r(t.comparison.attendanceTracking, [y(), y(), y(), y(), y()]),
+        r(t.comparison.gradeManagement, [y(), y(), y(), y(), y()]),
+        r(t.comparison.documentMgmt, [y(), y(), y(), y(), y()]),
+        r(t.comparison.multiCampus, [y(), p(t.comparison.noteLimited), y(t.comparison.noteMultiInstitution), y(), y()]),
       ],
     },
     {
       category: t.comparison.catCRM,
       rows: [
-        { feature: t.comparison.builtInCRM, apollo: "yes", apolloNote: t.comparison.noteNative, diamond: "addon", diamondNote: t.comparison.noteLeadSquared, studentFirst: "yes", studentFirstNote: t.comparison.noteBasicCRM },
-        { feature: t.comparison.leadCapture, apollo: "yes", diamond: "addon", studentFirst: "partial" },
-        { feature: t.comparison.campaignAutomation, apollo: "yes", diamond: "addon", studentFirst: "no" },
-        { feature: t.comparison.prospectTracking, apollo: "yes", diamond: "partial", studentFirst: "partial" },
-        { feature: t.comparison.leadSourceAnalytics, apollo: "yes", diamond: "partial", studentFirst: "no" },
+        r(t.comparison.builtInCRM, [y(t.comparison.noteNative), a(t.comparison.noteLeadSquared), y(t.comparison.noteBasicCRM), y(), y()]),
+        r(t.comparison.leadCapture, [y(), a(), p(), y(), y()]),
+        r(t.comparison.campaignAutomation, [y(), a(), n(), y(), p()]),
+        r(t.comparison.prospectTracking, [y(), p(), p(), y(), y()]),
+        r(t.comparison.leadSourceAnalytics, [y(), p(), n(), y(), p()]),
       ],
     },
     {
       category: t.comparison.catCompliance,
       rows: [
-        { feature: t.comparison.ipedsReporting, apollo: "yes", diamond: "yes", studentFirst: "partial" },
-        { feature: t.comparison.fisap, apollo: "yes", diamond: "partial", studentFirst: "partial" },
-        { feature: t.comparison.calc9010, apollo: "yes", diamond: "partial", studentFirst: "no" },
-        { feature: t.comparison.tax1098T, apollo: "yes", diamond: "yes", studentFirst: "partial" },
-        { feature: t.comparison.ncsara, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.auditTrail, apollo: "yes", diamond: "partial", studentFirst: "yes" },
+        r(t.comparison.ipedsReporting, [y(), y(), p(), p(), y()]),
+        r(t.comparison.fisap, [y(), p(), p(), p(), n()]),
+        r(t.comparison.calc9010, [y(), p(), n(), p(), y()]),
+        r(t.comparison.tax1098T, [y(), y(), p(), n(), y()]),
+        r(t.comparison.ncsara, [y(), n(), n(), n(), n()]),
+        r(t.comparison.auditTrail, [y(), p(), y(), p(), p()]),
       ],
     },
     {
       category: t.comparison.catFinance,
       rows: [
-        { feature: t.comparison.tuitionBilling, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.financialAidMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.paymentProcessing, apollo: "yes", apolloNote: t.comparison.noteStripe, diamond: "addon", diamondNote: t.comparison.noteDiamondPay, studentFirst: "addon", studentFirstNote: t.comparison.notePaymentus },
-        { feature: t.comparison.studentLedger, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.isirImport, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.paymentPlans, apollo: "yes", diamond: "addon", studentFirst: "addon", studentFirstNote: t.comparison.noteTuitionOptions },
+        r(t.comparison.tuitionBilling, [y(), y(), y(), y(), y()]),
+        r(t.comparison.financialAidMgmt, [y(), y(), y(), y(), a(t.comparison.noteCampusIvy)]),
+        r(t.comparison.paymentProcessing, [y(t.comparison.noteStripe), a(t.comparison.noteDiamondPay), a(t.comparison.notePaymentus), y(), y(t.comparison.noteAuthorizeNet)]),
+        r(t.comparison.studentLedger, [y(), y(), y(), y(), y()]),
+        r(t.comparison.isirImport, [y(), y(), y(), y(), n()]),
+        r(t.comparison.paymentPlans, [y(), a(), a(t.comparison.noteTuitionOptions), y(), y()]),
       ],
     },
     {
       category: t.comparison.catAI,
       rows: [
-        { feature: t.comparison.predictiveAnalytics, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.atRiskAlerts, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.retentionScoring, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.smartRecommendations, apollo: "yes", diamond: "no", studentFirst: "no" },
+        r(t.comparison.predictiveAnalytics, [y(), n(), n(), n(), n()]),
+        r(t.comparison.atRiskAlerts, [y(), n(), n(), y(t.comparison.noteRuleBased), n()]),
+        r(t.comparison.retentionScoring, [y(), n(), n(), y(t.comparison.noteRuleBased), n()]),
+        r(t.comparison.smartRecommendations, [y(), n(), n(), p(), n()]),
       ],
     },
     {
       category: t.comparison.catPortals,
       rows: [
-        { feature: t.comparison.adminDashboard, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.studentPortal, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.parentPortal, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.teacherPortal, apollo: "yes", diamond: "yes", studentFirst: "partial" },
-        { feature: t.comparison.mobileAccess, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteMobileFirst },
-        { feature: t.comparison.mfaSso, apollo: "yes", diamond: "partial", studentFirst: "partial", studentFirstNote: t.comparison.noteViaMicrosoft },
+        r(t.comparison.adminDashboard, [y(), y(), y(), y(), y()]),
+        r(t.comparison.studentPortal, [y(), y(), y(), y(), y()]),
+        r(t.comparison.parentPortal, [y(), n(), n(), n(), p()]),
+        r(t.comparison.teacherPortal, [y(), y(), p(), y(), y()]),
+        r(t.comparison.mobileAccess, [y(), y(), y(t.comparison.noteMobileFirst), y(t.comparison.noteNativeApp), y()]),
+        r(t.comparison.mfaSso, [y(), p(), p(t.comparison.noteViaMicrosoft), n(), p(t.comparison.noteSSO)]),
       ],
     },
     {
       category: t.comparison.catIntegrations,
       rows: [
-        { feature: t.comparison.lmsIntegration, apollo: "yes", apolloNote: t.comparison.noteCanvasMoodle, diamond: "addon", diamondNote: t.comparison.noteDiamondLMS, studentFirst: "yes", studentFirstNote: t.comparison.noteGenericLMS },
-        { feature: t.comparison.openAPI, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteAPIFirst },
-        { feature: t.comparison.zapierWebhooks, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.googleClassroom, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.accountingSoftware, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteBlackbaud },
+        r(t.comparison.lmsIntegration, [y(t.comparison.noteCanvasMoodle), a(t.comparison.noteDiamondLMS), y(t.comparison.noteGenericLMS), y(t.comparison.noteCanvasMoodle), y(t.comparison.noteMoodlePlus)]),
+        r(t.comparison.openAPI, [y(), y(), y(t.comparison.noteAPIFirst), y(), y()]),
+        r(t.comparison.zapierWebhooks, [y(), n(), n(), n(), n()]),
+        r(t.comparison.googleClassroom, [y(), n(), n(), n(), n()]),
+        r(t.comparison.accountingSoftware, [y(), y(), y(t.comparison.noteBlackbaud), n(), y(t.comparison.noteQuickBooks)]),
       ],
     },
     {
       category: t.comparison.catExperience,
       rows: [
-        { feature: t.comparison.modernUI, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLegacyUI, studentFirst: "yes", studentFirstNote: t.comparison.noteCloudNative },
-        { feature: t.comparison.bilingualSupport, apollo: "yes", apolloNote: t.comparison.noteEnEs, diamond: "no", studentFirst: "yes", studentFirstNote: t.comparison.noteMultiLang },
-        { feature: t.comparison.dataMigration, apollo: "yes", apolloNote: t.comparison.note2Days, diamond: "partial", diamondNote: t.comparison.noteWeeks, studentFirst: "yes", studentFirstNote: t.comparison.noteMonths },
-        { feature: t.comparison.aiPowered, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.customWorkflows, apollo: "yes", diamond: "partial", studentFirst: "yes" },
-        { feature: t.comparison.placementServices, apollo: "yes", diamond: "yes", diamondNote: t.comparison.noteJobWise, studentFirst: "yes" },
+        r(t.comparison.modernUI, [y(), p(t.comparison.noteLegacyUI), y(t.comparison.noteCloudNative), p(), n(t.comparison.noteLegacyUI)]),
+        r(t.comparison.bilingualSupport, [y(t.comparison.noteEnEs), n(), y(t.comparison.noteMultiLang), n(), y()]),
+        r(t.comparison.dataMigration, [y(t.comparison.note2Days), p(t.comparison.noteWeeks), y(t.comparison.noteMonths), y(), p()]),
+        r(t.comparison.aiPowered, [y(), n(), n(), n(), n()]),
+        r(t.comparison.customWorkflows, [y(), p(), y(), y(), y()]),
+        r(t.comparison.placementServices, [y(), y(t.comparison.noteJobWise), y(), y(), y()]),
       ],
     },
   ];
+
+  const gridCols = `grid-cols-[1fr_repeat(5,90px)] sm:grid-cols-[1fr_repeat(5,120px)]`;
 
   return (
     <section id="comparison" className="relative py-32">
@@ -183,26 +203,29 @@ export default function ComparisonMatrix() {
           className="mt-16 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.02]"
         >
           {/* Table header */}
-          <div className="grid min-w-[640px] grid-cols-[1fr_120px_120px_120px] items-center border-b border-white/10 bg-white/[0.03] px-6 py-4 sm:grid-cols-[1fr_150px_150px_150px]">
+          <div
+            className={`grid min-w-[700px] ${gridCols} items-center border-b border-white/10 bg-white/[0.03] px-6 py-4`}
+          >
             <span className="text-sm font-medium text-gray-400">
               {t.comparison.featureLabel}
             </span>
-            <span className="text-center text-sm font-bold text-apollo-400">
-              ApolloSRM
-            </span>
-            <span className="text-center text-sm font-medium text-gray-400">
-              Diamond SIS
-            </span>
-            <span className="text-center text-sm font-medium text-gray-400">
-              StudentFirst
-            </span>
+            {competitorNames.map((c) => (
+              <span
+                key={c.name}
+                className={`text-center text-sm font-${c.highlight ? "bold" : "medium"} ${
+                  c.highlight ? "text-apollo-400" : "text-gray-400"
+                }`}
+              >
+                {c.name}
+              </span>
+            ))}
           </div>
 
           {/* Categories */}
           {categories.map((cat) => (
             <div key={cat.category}>
               {/* Category header */}
-              <div className="min-w-[640px] border-b border-white/5 bg-white/[0.04] px-6 py-3">
+              <div className="min-w-[700px] border-b border-white/5 bg-white/[0.04] px-6 py-3">
                 <span className="text-sm font-semibold uppercase tracking-wider text-apollo-300/80">
                   {cat.category}
                 </span>
@@ -212,29 +235,25 @@ export default function ComparisonMatrix() {
               {cat.rows.map((row, idx) => (
                 <div
                   key={row.feature}
-                  className={`grid min-w-[640px] grid-cols-[1fr_120px_120px_120px] items-center px-6 py-3 sm:grid-cols-[1fr_150px_150px_150px] ${
+                  className={`grid min-w-[700px] ${gridCols} items-center px-6 py-3 ${
                     idx < cat.rows.length - 1
                       ? "border-b border-white/[0.03]"
                       : "border-b border-white/5"
                   } transition-colors hover:bg-white/[0.02]`}
                 >
                   <span className="text-sm text-gray-300">{row.feature}</span>
-                  <span className="flex justify-center">
-                    <StatusIcon status={row.apollo} note={row.apolloNote} />
-                  </span>
-                  <span className="flex justify-center">
-                    <StatusIcon status={row.diamond} note={row.diamondNote} />
-                  </span>
-                  <span className="flex justify-center">
-                    <StatusIcon status={row.studentFirst} note={row.studentFirstNote} />
-                  </span>
+                  {row.competitors.map((cell, ci) => (
+                    <span key={ci} className="flex justify-center">
+                      <StatusIcon status={cell.status} note={cell.note} />
+                    </span>
+                  ))}
                 </div>
               ))}
             </div>
           ))}
 
           {/* Legend */}
-          <div className="flex min-w-[640px] flex-wrap items-center gap-6 border-t border-white/10 bg-white/[0.03] px-6 py-4">
+          <div className="flex min-w-[700px] flex-wrap items-center gap-6 border-t border-white/10 bg-white/[0.03] px-6 py-4">
             <span className="inline-flex items-center gap-1.5 text-xs text-gray-500">
               <Check className="h-4 w-4 text-emerald-400" />{" "}
               {t.comparison.legendIncluded}
