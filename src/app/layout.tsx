@@ -18,7 +18,6 @@ export const metadata: Metadata = {
     "enrollment management",
   ],
   icons: {
-    icon: "/logos/apollo-rocket-dark.png",
     apple: "/logos/apollo-rocket-dark.png",
   },
   openGraph: {
@@ -51,6 +50,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
+        {/* Theme-aware favicon: white rocket on dark theme, blue rocket on light theme */}
+        <link rel="icon" href="/favicon-dark.png" media="(prefers-color-scheme: dark)" />
+        <link rel="icon" href="/favicon-blue.png" media="(prefers-color-scheme: light)" />
       </head>
       <body className="bg-navy-950 text-white antialiased">
         <a href="#main" className="skip-to-content">
