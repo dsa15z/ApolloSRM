@@ -2,19 +2,21 @@ import { LogoFull } from "./Logo";
 
 const footerLinks = {
   Product: [
-    { label: "Command Module", href: "#features" },
-    { label: "Flight Dynamics", href: "#features" },
-    { label: "Mission Compliance", href: "#features" },
-    { label: "Apollo Intelligence", href: "#features" },
+    { label: "Features", href: "/#features" },
+    { label: "Pricing", href: "/#pricing" },
+    { label: "ROI Calculator", href: "/#roi" },
+    { label: "Book a Demo", href: "/demo" },
   ],
-  Company: [
-    { label: "About", href: "#about" },
+  Resources: [
     { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "#contact" },
+    { label: "Data Migration", href: "/migration" },
+    { label: "Security & Compliance", href: "/security" },
+    { label: "About", href: "/#about" },
   ],
   Legal: [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "#" },
+    { label: "Contact", href: "/#contact" },
   ],
 };
 

@@ -9,6 +9,7 @@ import Integrations from "@/components/Integrations";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import About from "@/components/About";
+import ROICalculator from "@/components/ROICalculator";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -29,6 +30,7 @@ export default function Home() {
         <Pricing />
         <Testimonials />
         <About />
+        <ROICalculator />
         <FAQ />
         <Contact />
       </main>

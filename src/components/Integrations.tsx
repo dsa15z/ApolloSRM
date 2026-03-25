@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 const integrations = [
   { name: "Canvas LMS", logo: "/logos/canvas.svg" },
   { name: "DJA", logo: "/logos/dja.svg" },
+  { name: "DocuSign", logo: "/logos/docusign.svg" },
   { name: "Gmail", logo: "/logos/gmail.svg" },
   { name: "Google Classroom", logo: "/logos/google-classroom.svg" },
   { name: "Google Workspace", logo: "/logos/google-workspace.svg" },
