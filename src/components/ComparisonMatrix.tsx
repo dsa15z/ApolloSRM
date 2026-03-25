@@ -64,12 +64,12 @@ export default function ComparisonMatrix() {
   const competitorNames = [
     { name: "ApolloSRM", highlight: true },
     { name: "Diamond SIS", highlight: false },
-    { name: "StudentFirst", highlight: false },
-    { name: "Portico", highlight: false },
     { name: "Orbund", highlight: false },
+    { name: "Portico", highlight: false },
+    { name: "StudentFirst", highlight: false },
   ];
 
-  // Helper: [apollo, diamond, studentFirst, portico, orbund]
+  // Helper: [apollo, diamond, orbund, portico, studentFirst]
   const r = (
     feature: string,
     cells: [CompetitorCell, CompetitorCell, CompetitorCell, CompetitorCell, CompetitorCell]
@@ -88,39 +88,39 @@ export default function ComparisonMatrix() {
         r(t.comparison.attendanceTracking, [y(), y(), y(), y(), y()]),
         r(t.comparison.gradeManagement, [y(), y(), y(), y(), y()]),
         r(t.comparison.documentMgmt, [y(), y(), y(), y(), y()]),
-        r(t.comparison.multiCampus, [y(), p(t.comparison.noteLimited), y(t.comparison.noteMultiInstitution), y(), y()]),
+        r(t.comparison.multiCampus, [y(), p(t.comparison.noteLimited), y(), y(), y(t.comparison.noteMultiInstitution)]),
       ],
     },
     {
       category: t.comparison.catCRM,
       rows: [
-        r(t.comparison.builtInCRM, [y(t.comparison.noteNative), a(t.comparison.noteLeadSquared), y(t.comparison.noteBasicCRM), y(), y()]),
-        r(t.comparison.leadCapture, [y(), a(), p(), y(), y()]),
-        r(t.comparison.campaignAutomation, [y(), a(), n(), y(), p()]),
-        r(t.comparison.prospectTracking, [y(), p(), p(), y(), y()]),
-        r(t.comparison.leadSourceAnalytics, [y(), p(), n(), y(), p()]),
+        r(t.comparison.builtInCRM, [y(t.comparison.noteNative), a(t.comparison.noteLeadSquared), y(), y(), y(t.comparison.noteBasicCRM)]),
+        r(t.comparison.leadCapture, [y(), a(), y(), y(), p()]),
+        r(t.comparison.campaignAutomation, [y(), a(), p(), y(), n()]),
+        r(t.comparison.prospectTracking, [y(), p(), y(), y(), p()]),
+        r(t.comparison.leadSourceAnalytics, [y(), p(), p(), y(), n()]),
       ],
     },
     {
       category: t.comparison.catCompliance,
       rows: [
-        r(t.comparison.ipedsReporting, [y(), y(), p(), p(), y()]),
-        r(t.comparison.fisap, [y(), p(), p(), p(), n()]),
-        r(t.comparison.calc9010, [y(), p(), n(), p(), y()]),
-        r(t.comparison.tax1098T, [y(), y(), p(), n(), y()]),
+        r(t.comparison.ipedsReporting, [y(), y(), y(), p(), p()]),
+        r(t.comparison.fisap, [y(), p(), n(), p(), p()]),
+        r(t.comparison.calc9010, [y(), p(), y(), p(), n()]),
+        r(t.comparison.tax1098T, [y(), y(), y(), n(), p()]),
         r(t.comparison.ncsara, [y(), n(), n(), n(), n()]),
-        r(t.comparison.auditTrail, [y(), p(), y(), p(), p()]),
+        r(t.comparison.auditTrail, [y(), p(), p(), p(), y()]),
       ],
     },
     {
       category: t.comparison.catFinance,
       rows: [
         r(t.comparison.tuitionBilling, [y(), y(), y(), y(), y()]),
-        r(t.comparison.financialAidMgmt, [y(), y(), y(), y(), a(t.comparison.noteCampusIvy)]),
-        r(t.comparison.paymentProcessing, [y(t.comparison.noteStripe), a(t.comparison.noteDiamondPay), a(t.comparison.notePaymentus), y(), y(t.comparison.noteAuthorizeNet)]),
+        r(t.comparison.financialAidMgmt, [y(), y(), a(t.comparison.noteCampusIvy), y(), y()]),
+        r(t.comparison.paymentProcessing, [y(t.comparison.noteStripe), a(t.comparison.noteDiamondPay), y(t.comparison.noteAuthorizeNet), y(), a(t.comparison.notePaymentus)]),
         r(t.comparison.studentLedger, [y(), y(), y(), y(), y()]),
-        r(t.comparison.isirImport, [y(), y(), y(), y(), n()]),
-        r(t.comparison.paymentPlans, [y(), a(), a(t.comparison.noteTuitionOptions), y(), y()]),
+        r(t.comparison.isirImport, [y(), y(), n(), y(), y()]),
+        r(t.comparison.paymentPlans, [y(), a(), y(), y(), a(t.comparison.noteTuitionOptions)]),
       ],
     },
     {
@@ -137,28 +137,28 @@ export default function ComparisonMatrix() {
       rows: [
         r(t.comparison.adminDashboard, [y(), y(), y(), y(), y()]),
         r(t.comparison.studentPortal, [y(), y(), y(), y(), y()]),
-        r(t.comparison.parentPortal, [y(), n(), n(), n(), p()]),
-        r(t.comparison.teacherPortal, [y(), y(), p(), y(), y()]),
-        r(t.comparison.mobileAccess, [y(), y(), y(t.comparison.noteMobileFirst), y(t.comparison.noteNativeApp), y()]),
-        r(t.comparison.mfaSso, [y(), p(), p(t.comparison.noteViaMicrosoft), n(), p(t.comparison.noteSSO)]),
+        r(t.comparison.parentPortal, [y(), n(), p(), n(), n()]),
+        r(t.comparison.teacherPortal, [y(), y(), y(), y(), p()]),
+        r(t.comparison.mobileAccess, [y(), y(), y(), y(t.comparison.noteNativeApp), y(t.comparison.noteMobileFirst)]),
+        r(t.comparison.mfaSso, [y(), p(), p(t.comparison.noteSSO), n(), p(t.comparison.noteViaMicrosoft)]),
       ],
     },
     {
       category: t.comparison.catIntegrations,
       rows: [
-        r(t.comparison.lmsIntegration, [y(t.comparison.noteCanvasMoodle), a(t.comparison.noteDiamondLMS), y(t.comparison.noteGenericLMS), y(t.comparison.noteCanvasMoodle), y(t.comparison.noteMoodlePlus)]),
-        r(t.comparison.openAPI, [y(), y(), y(t.comparison.noteAPIFirst), y(), y()]),
+        r(t.comparison.lmsIntegration, [y(t.comparison.noteCanvasMoodle), a(t.comparison.noteDiamondLMS), y(t.comparison.noteMoodlePlus), y(t.comparison.noteCanvasMoodle), y(t.comparison.noteGenericLMS)]),
+        r(t.comparison.openAPI, [y(), y(), y(), y(), y(t.comparison.noteAPIFirst)]),
         r(t.comparison.zapierWebhooks, [y(), n(), n(), n(), n()]),
         r(t.comparison.googleClassroom, [y(), n(), n(), n(), n()]),
-        r(t.comparison.accountingSoftware, [y(), y(), y(t.comparison.noteBlackbaud), n(), y(t.comparison.noteQuickBooks)]),
+        r(t.comparison.accountingSoftware, [y(), y(), y(t.comparison.noteQuickBooks), n(), y(t.comparison.noteBlackbaud)]),
       ],
     },
     {
       category: t.comparison.catExperience,
       rows: [
-        r(t.comparison.modernUI, [y(), p(t.comparison.noteLegacyUI), y(t.comparison.noteCloudNative), p(), n(t.comparison.noteLegacyUI)]),
-        r(t.comparison.bilingualSupport, [y(t.comparison.noteEnEs), n(), y(t.comparison.noteMultiLang), n(), y()]),
-        r(t.comparison.dataMigration, [y(t.comparison.note2Days), p(t.comparison.noteWeeks), y(t.comparison.noteMonths), y(), p()]),
+        r(t.comparison.modernUI, [y(), p(t.comparison.noteLegacyUI), n(t.comparison.noteLegacyUI), p(), y(t.comparison.noteCloudNative)]),
+        r(t.comparison.bilingualSupport, [y(t.comparison.noteEnEs), n(), y(), n(), y(t.comparison.noteMultiLang)]),
+        r(t.comparison.dataMigration, [y(t.comparison.note2Days), p(t.comparison.noteWeeks), p(), y(), y(t.comparison.noteMonths)]),
         r(t.comparison.aiPowered, [y(), n(), n(), n(), n()]),
         r(t.comparison.customWorkflows, [y(), p(), y(), y(), y()]),
         r(t.comparison.placementServices, [y(), y(t.comparison.noteJobWise), y(), y(), y()]),
