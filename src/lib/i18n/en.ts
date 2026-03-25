@@ -335,6 +335,9 @@ const en = {
     noteCloudNative: "Cloud-native",
     noteMultiLang: "Multi-language",
     noteMonths: "Months",
+    noteBasicCRM: "Basic",
+    noteGenericLMS: "Generic",
+    noteAPIFirst: "API-first",
     // Legend
     legendIncluded: "Included",
     legendPartial: "Partial / Limited",

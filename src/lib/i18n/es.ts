@@ -338,6 +338,9 @@ const es: Dictionary = {
     noteCloudNative: "Nube nativa",
     noteMultiLang: "Multi-idioma",
     noteMonths: "Meses",
+    noteBasicCRM: "Básico",
+    noteGenericLMS: "Genérico",
+    noteAPIFirst: "API-first",
     // Leyenda
     legendIncluded: "Incluido",
     legendPartial: "Parcial / Limitado",

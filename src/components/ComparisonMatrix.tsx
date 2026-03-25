@@ -76,7 +76,7 @@ export default function ComparisonMatrix() {
     {
       category: t.comparison.catCRM,
       rows: [
-        { feature: t.comparison.builtInCRM, apollo: "yes", apolloNote: t.comparison.noteNative, diamond: "addon", diamondNote: t.comparison.noteLeadSquared, studentFirst: "partial", studentFirstNote: t.comparison.noteBasicRecruitment },
+        { feature: t.comparison.builtInCRM, apollo: "yes", apolloNote: t.comparison.noteNative, diamond: "addon", diamondNote: t.comparison.noteLeadSquared, studentFirst: "yes", studentFirstNote: t.comparison.noteBasicCRM },
         { feature: t.comparison.leadCapture, apollo: "yes", diamond: "addon", studentFirst: "partial" },
         { feature: t.comparison.campaignAutomation, apollo: "yes", diamond: "addon", studentFirst: "no" },
         { feature: t.comparison.prospectTracking, apollo: "yes", diamond: "partial", studentFirst: "partial" },
@@ -91,7 +91,7 @@ export default function ComparisonMatrix() {
         { feature: t.comparison.calc9010, apollo: "yes", diamond: "partial", studentFirst: "no" },
         { feature: t.comparison.tax1098T, apollo: "yes", diamond: "yes", studentFirst: "partial" },
         { feature: t.comparison.ncsara, apollo: "yes", diamond: "no", studentFirst: "no" },
-        { feature: t.comparison.auditTrail, apollo: "yes", diamond: "partial", studentFirst: "partial" },
+        { feature: t.comparison.auditTrail, apollo: "yes", diamond: "partial", studentFirst: "yes" },
       ],
     },
     {
@@ -101,7 +101,7 @@ export default function ComparisonMatrix() {
         { feature: t.comparison.financialAidMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
         { feature: t.comparison.paymentProcessing, apollo: "yes", apolloNote: t.comparison.noteStripe, diamond: "addon", diamondNote: t.comparison.noteDiamondPay, studentFirst: "addon", studentFirstNote: t.comparison.notePaymentus },
         { feature: t.comparison.studentLedger, apollo: "yes", diamond: "yes", studentFirst: "yes" },
-        { feature: t.comparison.isirImport, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.isirImport, apollo: "yes", diamond: "yes", studentFirst: "yes" },
         { feature: t.comparison.paymentPlans, apollo: "yes", diamond: "addon", studentFirst: "addon", studentFirstNote: t.comparison.noteTuitionOptions },
       ],
     },
@@ -128,8 +128,8 @@ export default function ComparisonMatrix() {
     {
       category: t.comparison.catIntegrations,
       rows: [
-        { feature: t.comparison.lmsIntegration, apollo: "yes", apolloNote: t.comparison.noteCanvasMoodle, diamond: "addon", diamondNote: t.comparison.noteDiamondLMS, studentFirst: "no" },
-        { feature: t.comparison.openAPI, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.lmsIntegration, apollo: "yes", apolloNote: t.comparison.noteCanvasMoodle, diamond: "addon", diamondNote: t.comparison.noteDiamondLMS, studentFirst: "yes", studentFirstNote: t.comparison.noteGenericLMS },
+        { feature: t.comparison.openAPI, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteAPIFirst },
         { feature: t.comparison.zapierWebhooks, apollo: "yes", diamond: "no", studentFirst: "no" },
         { feature: t.comparison.googleClassroom, apollo: "yes", diamond: "no", studentFirst: "no" },
         { feature: t.comparison.accountingSoftware, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteBlackbaud },
@@ -139,7 +139,7 @@ export default function ComparisonMatrix() {
       category: t.comparison.catExperience,
       rows: [
         { feature: t.comparison.modernUI, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLegacyUI, studentFirst: "yes", studentFirstNote: t.comparison.noteCloudNative },
-        { feature: t.comparison.bilingualSupport, apollo: "yes", apolloNote: t.comparison.noteEnEs, diamond: "no", studentFirst: "partial", studentFirstNote: t.comparison.noteMultiLang },
+        { feature: t.comparison.bilingualSupport, apollo: "yes", apolloNote: t.comparison.noteEnEs, diamond: "no", studentFirst: "yes", studentFirstNote: t.comparison.noteMultiLang },
         { feature: t.comparison.dataMigration, apollo: "yes", apolloNote: t.comparison.note2Days, diamond: "partial", diamondNote: t.comparison.noteWeeks, studentFirst: "yes", studentFirstNote: t.comparison.noteMonths },
         { feature: t.comparison.aiPowered, apollo: "yes", diamond: "no", studentFirst: "no" },
         { feature: t.comparison.customWorkflows, apollo: "yes", diamond: "partial", studentFirst: "yes" },
