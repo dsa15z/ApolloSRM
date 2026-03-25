@@ -201,6 +201,7 @@ npm run db:push
 
 ### Rules
 
+0. **USE LATIN AMERICAN SPANISH (not Spain/Castilian Spanish).** Target audience is Latin America. Use "ustedes" not "vosotros", "computadora" not "ordenador", "celular" not "móvil", etc.
 1. **NEVER add English-only text to a component.** All user-facing strings go through `useI18n()` and the dictionary files.
 2. **When adding/changing ANY text**, update BOTH files:
    - `src/lib/i18n/en.ts` — English dictionary
