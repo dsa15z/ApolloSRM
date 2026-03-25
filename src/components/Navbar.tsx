@@ -9,8 +9,9 @@ import type { Locale } from "@/lib/i18n";
 
 const navLinks = [
   { key: "product" as const, href: "/#features" },
+  { key: "comparison" as const, href: "/#comparison" },
+  { key: "downloads" as const, href: "/downloads" },
   { key: "blog" as const, href: "/blog" },
-  { key: "about" as const, href: "/#about" },
   { key: "contact" as const, href: "/#contact" },
 ];
 

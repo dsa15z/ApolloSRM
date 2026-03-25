@@ -6,6 +6,7 @@ const en = {
     contact: "Contact",
     getStarted: "Get Started",
     comparison: "Compare",
+    downloads: "Downloads",
   },
   hero: {
     badge: "AI-Powered Student Relationship Management",

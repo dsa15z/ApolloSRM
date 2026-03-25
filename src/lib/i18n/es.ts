@@ -8,6 +8,7 @@ const es: Dictionary = {
     contact: "Contacto",
     getStarted: "Comenzar",
     comparison: "Comparar",
+    downloads: "Descargas",
   },
   hero: {
     badge: "Gestión de Relaciones Estudiantiles con IA",
