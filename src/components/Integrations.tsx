@@ -9,119 +9,125 @@ import { useI18n } from "@/lib/i18n/context";
 interface Integration {
   name: string;
   logo: string;
-  category: string;
+  categories: string[];
   featured?: boolean;
 }
 
 const integrations: Integration[] = [
   // LMS / Education
-  { name: "Blackboard", logo: "/logos/blackboard.svg", category: "LMS / Education", featured: true },
-  { name: "Canvas LMS", logo: "/logos/canvas.svg", category: "LMS / Education", featured: true },
-  { name: "Google Classroom", logo: "/logos/google-classroom.svg", category: "LMS / Education", featured: true },
-  { name: "Moodle", logo: "/logos/moodle.svg", category: "LMS / Education", featured: true },
-  { name: "Schoology", logo: "/logos/schoology.svg", category: "LMS / Education" },
-  { name: "TalentLMS", logo: "/logos/talentlms.svg", category: "LMS / Education" },
-  { name: "Teachable", logo: "/logos/teachable.svg", category: "LMS / Education" },
-  { name: "Thinkific", logo: "/logos/thinkific.svg", category: "LMS / Education" },
+  { name: "Blackboard", logo: "/logos/blackboard.svg", categories: ["LMS / Education"], featured: true },
+  { name: "Canvas LMS", logo: "/logos/canvas.svg", categories: ["LMS / Education"], featured: true },
+  { name: "Google Classroom", logo: "/logos/google-classroom.svg", categories: ["LMS / Education"], featured: true },
+  { name: "Moodle", logo: "/logos/moodle.svg", categories: ["LMS / Education"], featured: true },
+  { name: "Schoology", logo: "/logos/schoology.svg", categories: ["LMS / Education"] },
+  { name: "TalentLMS", logo: "/logos/talentlms.svg", categories: ["LMS / Education"] },
+  { name: "Teachable", logo: "/logos/teachable.svg", categories: ["LMS / Education"] },
+  { name: "Thinkific", logo: "/logos/thinkific.svg", categories: ["LMS / Education"] },
 
   // CRM / Lead Gen
-  { name: "ActiveCampaign", logo: "/logos/activecampaign.svg", category: "CRM / Lead Gen" },
-  { name: "Element451", logo: "/logos/element451.svg", category: "CRM / Lead Gen", featured: true },
-  { name: "HubSpot", logo: "/logos/hubspot.svg", category: "CRM / Lead Gen", featured: true },
-  { name: "LeadSquared", logo: "/logos/leadsquared.svg", category: "CRM / Lead Gen", featured: true },
-  { name: "Pipedrive", logo: "/logos/pipedrive.svg", category: "CRM / Lead Gen" },
-  { name: "Salesforce", logo: "/logos/salesforce.svg", category: "CRM / Lead Gen", featured: true },
-  { name: "Zoho CRM", logo: "/logos/zoho-crm.svg", category: "CRM / Lead Gen" },
+  { name: "ActiveCampaign", logo: "/logos/activecampaign.svg", categories: ["CRM / Lead Gen", "Communication"] },
+  { name: "Element451", logo: "/logos/element451.svg", categories: ["CRM / Lead Gen"], featured: true },
+  { name: "HubSpot", logo: "/logos/hubspot.svg", categories: ["CRM / Lead Gen", "Social / Marketing"], featured: true },
+  { name: "LeadSquared", logo: "/logos/leadsquared.svg", categories: ["CRM / Lead Gen"], featured: true },
+  { name: "Pipedrive", logo: "/logos/pipedrive.svg", categories: ["CRM / Lead Gen"] },
+  { name: "Salesforce", logo: "/logos/salesforce.svg", categories: ["CRM / Lead Gen", "Analytics / Reporting"], featured: true },
+  { name: "Zoho CRM", logo: "/logos/zoho-crm.svg", categories: ["CRM / Lead Gen"] },
 
   // Communication
-  { name: "Gmail", logo: "/logos/gmail.svg", category: "Communication", featured: true },
-  { name: "Mailchimp", logo: "/logos/mailchimp.svg", category: "Communication", featured: true },
-  { name: "Microsoft Teams", logo: "/logos/microsoft-teams.svg", category: "Communication", featured: true },
-  { name: "Outlook", logo: "/logos/outlook.svg", category: "Communication" },
-  { name: "SendGrid", logo: "/logos/sendgrid.svg", category: "Communication" },
-  { name: "Slack", logo: "/logos/slack.svg", category: "Communication", featured: true },
-  { name: "Twilio", logo: "/logos/twilio.svg", category: "Communication", featured: true },
-  { name: "WhatsApp Business", logo: "/logos/whatsapp.svg", category: "Communication" },
-  { name: "Constant Contact", logo: "/logos/constant-contact.svg", category: "Communication" },
+  { name: "Gmail", logo: "/logos/gmail.svg", categories: ["Communication"], featured: true },
+  { name: "Intercom", logo: "/logos/intercom.svg", categories: ["Communication"], featured: true },
+  { name: "Mailchimp", logo: "/logos/mailchimp.svg", categories: ["Communication", "Social / Marketing"], featured: true },
+  { name: "Microsoft Teams", logo: "/logos/microsoft-teams.svg", categories: ["Communication"], featured: true },
+  { name: "Outlook", logo: "/logos/outlook.svg", categories: ["Communication"] },
+  { name: "SendGrid", logo: "/logos/sendgrid.svg", categories: ["Communication"] },
+  { name: "Slack", logo: "/logos/slack.svg", categories: ["Communication"], featured: true },
+  { name: "Twilio", logo: "/logos/twilio.svg", categories: ["Communication"], featured: true },
+  { name: "WhatsApp Business", logo: "/logos/whatsapp.svg", categories: ["Communication"] },
+  { name: "Constant Contact", logo: "/logos/constant-contact.svg", categories: ["Communication", "Social / Marketing"] },
+  { name: "Zendesk", logo: "/logos/zendesk.svg", categories: ["Communication"] },
 
   // Scheduling
-  { name: "Acuity Scheduling", logo: "/logos/acuity.svg", category: "Scheduling" },
-  { name: "Calendly", logo: "/logos/calendly.svg", category: "Scheduling", featured: true },
-  { name: "Google Calendar", logo: "/logos/google-calendar.svg", category: "Scheduling", featured: true },
-  { name: "Outlook Calendar", logo: "/logos/outlook-calendar.svg", category: "Scheduling" },
+  { name: "Acuity Scheduling", logo: "/logos/acuity.svg", categories: ["Scheduling"] },
+  { name: "Calendly", logo: "/logos/calendly.svg", categories: ["Scheduling"], featured: true },
+  { name: "Google Calendar", logo: "/logos/google-calendar.svg", categories: ["Scheduling"], featured: true },
+  { name: "Outlook Calendar", logo: "/logos/outlook-calendar.svg", categories: ["Scheduling"] },
+  { name: "Zoom", logo: "/logos/zoom.svg", categories: ["Scheduling", "Communication"], featured: true },
 
   // Documents / E-Signature
-  { name: "Adobe Sign", logo: "/logos/adobe-sign.svg", category: "Documents / E-Signature" },
-  { name: "DocuSign", logo: "/logos/docusign.svg", category: "Documents / E-Signature", featured: true },
-  { name: "Dropbox Sign", logo: "/logos/dropbox-sign.svg", category: "Documents / E-Signature" },
-  { name: "Google Docs", logo: "/logos/google-docs.svg", category: "Documents / E-Signature" },
-  { name: "PandaDoc", logo: "/logos/pandadoc.svg", category: "Documents / E-Signature" },
+  { name: "Adobe Sign", logo: "/logos/adobe-sign.svg", categories: ["Documents / E-Signature"] },
+  { name: "DocuSign", logo: "/logos/docusign.svg", categories: ["Documents / E-Signature"], featured: true },
+  { name: "Dropbox Sign", logo: "/logos/dropbox-sign.svg", categories: ["Documents / E-Signature"] },
+  { name: "Google Docs", logo: "/logos/google-docs.svg", categories: ["Documents / E-Signature"] },
+  { name: "PandaDoc", logo: "/logos/pandadoc.svg", categories: ["Documents / E-Signature"] },
 
   // Payments / Accounting
-  { name: "FreshBooks", logo: "/logos/freshbooks.svg", category: "Payments / Accounting" },
-  { name: "PayPal", logo: "/logos/paypal.svg", category: "Payments / Accounting" },
-  { name: "QuickBooks", logo: "/logos/quickbooks.svg", category: "Payments / Accounting", featured: true },
-  { name: "Square", logo: "/logos/square.svg", category: "Payments / Accounting" },
-  { name: "Stripe", logo: "/logos/stripe.svg", category: "Payments / Accounting", featured: true },
-  { name: "Wave", logo: "/logos/wave.svg", category: "Payments / Accounting" },
-  { name: "Xero", logo: "/logos/xero.svg", category: "Payments / Accounting" },
+  { name: "Authorize.net", logo: "/logos/authorize-net.svg", categories: ["Payments / Accounting"], featured: true },
+  { name: "FreshBooks", logo: "/logos/freshbooks.svg", categories: ["Payments / Accounting"] },
+  { name: "PayPal", logo: "/logos/paypal.svg", categories: ["Payments / Accounting"] },
+  { name: "Plaid", logo: "/logos/plaid.svg", categories: ["Payments / Accounting", "Financial Aid"] },
+  { name: "QuickBooks", logo: "/logos/quickbooks.svg", categories: ["Payments / Accounting"], featured: true },
+  { name: "Square", logo: "/logos/square.svg", categories: ["Payments / Accounting"] },
+  { name: "Stripe", logo: "/logos/stripe.svg", categories: ["Payments / Accounting"], featured: true },
+  { name: "Wave", logo: "/logos/wave.svg", categories: ["Payments / Accounting"] },
+  { name: "Xero", logo: "/logos/xero.svg", categories: ["Payments / Accounting"] },
 
   // Forms / Surveys
-  { name: "Cognito Forms", logo: "/logos/cognito-forms.svg", category: "Forms / Surveys" },
-  { name: "Google Forms", logo: "/logos/google-forms.svg", category: "Forms / Surveys", featured: true },
-  { name: "JotForm", logo: "/logos/jotform.svg", category: "Forms / Surveys" },
-  { name: "SurveyMonkey", logo: "/logos/surveymonkey.svg", category: "Forms / Surveys" },
-  { name: "Typeform", logo: "/logos/typeform.svg", category: "Forms / Surveys" },
+  { name: "Cognito Forms", logo: "/logos/cognito-forms.svg", categories: ["Forms / Surveys"] },
+  { name: "Google Forms", logo: "/logos/google-forms.svg", categories: ["Forms / Surveys"], featured: true },
+  { name: "JotForm", logo: "/logos/jotform.svg", categories: ["Forms / Surveys"] },
+  { name: "SurveyMonkey", logo: "/logos/surveymonkey.svg", categories: ["Forms / Surveys"] },
+  { name: "Typeform", logo: "/logos/typeform.svg", categories: ["Forms / Surveys"] },
 
   // Project / Task Management
-  { name: "Asana", logo: "/logos/asana.svg", category: "Project Management" },
-  { name: "ClickUp", logo: "/logos/clickup.svg", category: "Project Management" },
-  { name: "Monday.com", logo: "/logos/monday.svg", category: "Project Management" },
-  { name: "Notion", logo: "/logos/notion.svg", category: "Project Management", featured: true },
-  { name: "Trello", logo: "/logos/trello.svg", category: "Project Management" },
+  { name: "Asana", logo: "/logos/asana.svg", categories: ["Project Management"] },
+  { name: "ClickUp", logo: "/logos/clickup.svg", categories: ["Project Management"] },
+  { name: "Monday.com", logo: "/logos/monday.svg", categories: ["Project Management"] },
+  { name: "Notion", logo: "/logos/notion.svg", categories: ["Project Management", "Documents / E-Signature"], featured: true },
+  { name: "Trello", logo: "/logos/trello.svg", categories: ["Project Management"] },
 
   // File Storage
-  { name: "Box", logo: "/logos/box.svg", category: "File Storage" },
-  { name: "Dropbox", logo: "/logos/dropbox.svg", category: "File Storage" },
-  { name: "Google Drive", logo: "/logos/google-drive.svg", category: "File Storage", featured: true },
-  { name: "OneDrive", logo: "/logos/onedrive.svg", category: "File Storage" },
+  { name: "Box", logo: "/logos/box.svg", categories: ["File Storage"] },
+  { name: "Dropbox", logo: "/logos/dropbox.svg", categories: ["File Storage"] },
+  { name: "Google Drive", logo: "/logos/google-drive.svg", categories: ["File Storage"], featured: true },
+  { name: "OneDrive", logo: "/logos/onedrive.svg", categories: ["File Storage"] },
 
   // Analytics / Reporting
-  { name: "Airtable", logo: "/logos/airtable.svg", category: "Analytics / Reporting" },
-  { name: "Google Analytics", logo: "/logos/google-analytics.svg", category: "Analytics / Reporting" },
-  { name: "Google Sheets", logo: "/logos/google-sheets.svg", category: "Analytics / Reporting", featured: true },
-  { name: "Looker Studio", logo: "/logos/looker-studio.svg", category: "Analytics / Reporting" },
+  { name: "Airtable", logo: "/logos/airtable.svg", categories: ["Analytics / Reporting", "Project Management"] },
+  { name: "Google Analytics", logo: "/logos/google-analytics.svg", categories: ["Analytics / Reporting"] },
+  { name: "Google Sheets", logo: "/logos/google-sheets.svg", categories: ["Analytics / Reporting"], featured: true },
+  { name: "Looker Studio", logo: "/logos/looker-studio.svg", categories: ["Analytics / Reporting"] },
+  { name: "Power BI", logo: "/logos/power-bi.svg", categories: ["Analytics / Reporting"], featured: true },
+  { name: "Tableau", logo: "/logos/tableau.svg", categories: ["Analytics / Reporting"] },
 
   // HR / Staff
-  { name: "ADP", logo: "/logos/adp.svg", category: "HR / Staff" },
-  { name: "BambooHR", logo: "/logos/bamboohr.svg", category: "HR / Staff" },
-  { name: "Gusto", logo: "/logos/gusto.svg", category: "HR / Staff" },
+  { name: "ADP", logo: "/logos/adp.svg", categories: ["HR / Staff"] },
+  { name: "BambooHR", logo: "/logos/bamboohr.svg", categories: ["HR / Staff"] },
+  { name: "Gusto", logo: "/logos/gusto.svg", categories: ["HR / Staff"] },
 
   // Social / Marketing
-  { name: "Facebook Lead Ads", logo: "/logos/facebook-leads.svg", category: "Social / Marketing" },
-  { name: "Google Ads", logo: "/logos/google-ads.svg", category: "Social / Marketing" },
-  { name: "Instagram", logo: "/logos/instagram.svg", category: "Social / Marketing" },
-  { name: "LinkedIn", logo: "/logos/linkedin.svg", category: "Social / Marketing", featured: true },
+  { name: "Facebook Lead Ads", logo: "/logos/facebook-leads.svg", categories: ["Social / Marketing", "CRM / Lead Gen"] },
+  { name: "Google Ads", logo: "/logos/google-ads.svg", categories: ["Social / Marketing"] },
+  { name: "Instagram", logo: "/logos/instagram.svg", categories: ["Social / Marketing"] },
+  { name: "LinkedIn", logo: "/logos/linkedin.svg", categories: ["Social / Marketing", "CRM / Lead Gen"], featured: true },
 
   // Financial Aid
-  { name: "Campus Ivy", logo: "/logos/campus-ivy.svg", category: "Financial Aid", featured: true },
-  { name: "DJA", logo: "/logos/dja.svg", category: "Financial Aid", featured: true },
-  { name: "ECM", logo: "/logos/ecm.svg", category: "Financial Aid", featured: true },
-  { name: "EDExpress", logo: "/logos/edexpress.svg", category: "Financial Aid", featured: true },
-  { name: "FAME", logo: "/logos/fame.svg", category: "Financial Aid" },
-  { name: "Global FAS", logo: "/logos/global-fas.svg", category: "Financial Aid", featured: true },
+  { name: "Campus Ivy", logo: "/logos/campus-ivy.svg", categories: ["Financial Aid"], featured: true },
+  { name: "DJA", logo: "/logos/dja.svg", categories: ["Financial Aid"], featured: true },
+  { name: "ECM", logo: "/logos/ecm.svg", categories: ["Financial Aid"], featured: true },
+  { name: "EDExpress", logo: "/logos/edexpress.svg", categories: ["Financial Aid"], featured: true },
+  { name: "FAME", logo: "/logos/fame.svg", categories: ["Financial Aid"] },
+  { name: "Global FAS", logo: "/logos/global-fas.svg", categories: ["Financial Aid"], featured: true },
 
   // Automation
-  { name: "Google Workspace", logo: "/logos/google-workspace.svg", category: "Automation", featured: true },
-  { name: "Microsoft 365", logo: "/logos/microsoft-365.svg", category: "Automation", featured: true },
-  { name: "Zapier", logo: "/logos/zapier.svg", category: "Automation", featured: true },
-  { name: "Zoom", logo: "/logos/zoom.svg", category: "Automation", featured: true },
+  { name: "Google Workspace", logo: "/logos/google-workspace.svg", categories: ["Automation", "Communication"], featured: true },
+  { name: "Microsoft 365", logo: "/logos/microsoft-365.svg", categories: ["Automation", "Communication"], featured: true },
+  { name: "Power Automate", logo: "/logos/power-automate.svg", categories: ["Automation"], featured: true },
 ];
 
-const categories = [
-  "All",
-  ...Array.from(new Set(integrations.map((i) => i.category))),
-];
+// Derive unique category list from all integrations
+const allCategories = Array.from(
+  new Set(integrations.flatMap((i) => i.categories))
+);
 
 function IntegrationCard({ tool }: { tool: Integration }) {
   return (
@@ -167,7 +173,7 @@ export default function Integrations() {
     let result = integrations;
 
     if (activeCategory !== "All") {
-      result = result.filter((i) => i.category === activeCategory);
+      result = result.filter((i) => i.categories.includes(activeCategory));
     }
 
     if (search.trim()) {
@@ -175,7 +181,7 @@ export default function Integrations() {
       result = result.filter(
         (i) =>
           i.name.toLowerCase().includes(q) ||
-          i.category.toLowerCase().includes(q)
+          i.categories.some((c) => c.toLowerCase().includes(q))
       );
     }
 
@@ -222,7 +228,7 @@ export default function Integrations() {
 
         {/* Category pills */}
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          {categories.map((cat) => (
+          {["All", ...allCategories].map((cat) => (
             <button
               key={cat}
               onClick={() => {

@@ -227,7 +227,7 @@ const en = {
     noResultsHint:
       "Don't see what you need? We can build custom integrations via our open REST API.",
     poweredBy:
-      "All integrations powered by Zapier + our open REST API and webhook system.",
+      "All integrations powered by our open REST API and webhook system.",
     // Category names
     catLMS: "LMS / Education",
     catCRM: "CRM / Lead Gen",

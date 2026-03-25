@@ -231,7 +231,7 @@ const es: Dictionary = {
     noResultsHint:
       "¿No ve lo que necesita? Podemos crear integraciones personalizadas a través de nuestra API REST abierta.",
     poweredBy:
-      "Todas las integraciones impulsadas por Zapier + nuestra API REST abierta y sistema de webhooks.",
+      "Todas las integraciones impulsadas por nuestra API REST abierta y sistema de webhooks.",
     catLMS: "LMS / Educación",
     catCRM: "CRM / Generación de Leads",
     catComm: "Comunicación",
