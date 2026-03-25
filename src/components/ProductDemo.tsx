@@ -11,6 +11,7 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
 
 function MiniChart() {
   const bars = [35, 55, 45, 70, 60, 80, 75, 90, 85, 95];
@@ -60,6 +61,8 @@ function StatCard({
 }
 
 export default function ProductDemo() {
+  const { t } = useI18n();
+
   return (
     <section className="relative py-32 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/30 to-navy-950" />
@@ -72,15 +75,14 @@ export default function ProductDemo() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-            See It In Action
+            {t.productDemo.label}
           </p>
           <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Your Mission Control{" "}
-            <span className="gradient-text">Dashboard</span>
+            {t.productDemo.title}{" "}
+            <span className="gradient-text">{t.productDemo.titleHighlight}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
-            A single pane of glass for your entire institution. Real-time
-            metrics, student alerts, and actionable insights — all in one place.
+            {t.productDemo.description}
           </p>
         </motion.div>
 
@@ -100,7 +102,7 @@ export default function ProductDemo() {
               <div className="h-3 w-3 rounded-full bg-green-500/70" />
             </div>
             <p className="ml-3 text-xs text-gray-500">
-              ApolloSRM — Command Module
+              {t.productDemo.titleBar}
             </p>
           </div>
 
@@ -109,28 +111,28 @@ export default function ProductDemo() {
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               <StatCard
                 icon={Users}
-                label="Active Students"
+                label={t.productDemo.activeStudents}
                 value="1,247"
                 change="+12%"
                 positive
               />
               <StatCard
                 icon={GraduationCap}
-                label="Graduation Rate"
+                label={t.productDemo.graduationRate}
                 value="87.3%"
                 change="+4.2%"
                 positive
               />
               <StatCard
                 icon={TrendingUp}
-                label="Enrollment Pipeline"
+                label={t.productDemo.enrollmentPipeline}
                 value="342"
                 change="+23%"
                 positive
               />
               <StatCard
                 icon={DollarSign}
-                label="Revenue YTD"
+                label={t.productDemo.revenueYtd}
                 value="$2.4M"
                 change="+8.5%"
                 positive
@@ -143,10 +145,10 @@ export default function ProductDemo() {
               <div className="lg:col-span-2 rounded-xl border border-white/5 bg-white/[0.02] p-6">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-semibold">
-                    Enrollment Trend
+                    {t.productDemo.enrollmentTrend}
                   </h3>
                   <span className="text-xs text-gray-500">
-                    Last 10 months
+                    {t.productDemo.last10Months}
                   </span>
                 </div>
                 <div className="mt-4">
@@ -155,37 +157,37 @@ export default function ProductDemo() {
                 <div className="mt-4 flex items-center gap-4 text-xs text-gray-500">
                   <span className="flex items-center gap-1">
                     <div className="h-2 w-2 rounded-full bg-apollo-500" />
-                    New Enrollments
+                    {t.productDemo.newEnrollments}
                   </span>
                 </div>
               </div>
 
               {/* Alerts panel */}
               <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6">
-                <h3 className="text-sm font-semibold">Recent Alerts</h3>
+                <h3 className="text-sm font-semibold">{t.productDemo.recentAlerts}</h3>
                 <div className="mt-4 space-y-3">
                   {[
                     {
                       icon: AlertTriangle,
-                      text: "3 students flagged at-risk",
+                      text: t.productDemo.alertAtRisk,
                       color: "text-amber-400",
                       bg: "bg-amber-400/10",
                     },
                     {
                       icon: CheckCircle,
-                      text: "Compliance report ready",
+                      text: t.productDemo.alertCompliance,
                       color: "text-emerald-400",
                       bg: "bg-emerald-400/10",
                     },
                     {
                       icon: Bell,
-                      text: "14 new applications",
+                      text: t.productDemo.alertApplications,
                       color: "text-apollo-400",
                       bg: "bg-apollo-500/10",
                     },
                     {
                       icon: Calendar,
-                      text: "Accreditation review in 30d",
+                      text: t.productDemo.alertAccreditation,
                       color: "text-purple-400",
                       bg: "bg-purple-400/10",
                     },

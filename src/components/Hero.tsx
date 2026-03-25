@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
 
 export default function Hero() {
+  const { t } = useI18n();
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
       {/* Animated background */}
@@ -43,24 +46,22 @@ export default function Hero() {
           {/* Badge */}
           <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-apollo-500/30 bg-apollo-500/10 px-4 py-1.5 text-sm text-apollo-300">
             <Sparkles className="h-4 w-4" />
-            AI-Powered Student Relationship Management
+            {t.hero.badge}
           </div>
 
           {/* Headline */}
           <h1 className="mx-auto max-w-4xl text-5xl font-extrabold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-            Smart. Simple.{" "}
-            <span className="gradient-text">Seamless.</span>
+            {t.hero.headline1}{" "}
+            <span className="gradient-text">{t.hero.headlineHighlight}</span>
             <br />
             <span className="mt-2 block text-4xl font-bold text-gray-300 sm:text-5xl lg:text-6xl">
-              The Future of Student Relationships.
+              {t.hero.headline2}
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-gray-400 sm:text-xl">
-            The all-in-one SIS + CRM platform built for colleges and career
-            schools. Manage enrollment, compliance, financials, and student
-            success — powered by AI.
+            {t.hero.description}
           </p>
 
           {/* CTA buttons */}
@@ -69,14 +70,14 @@ export default function Hero() {
               href="#contact"
               className="glow group inline-flex items-center gap-2 rounded-full bg-apollo-500 px-8 py-3.5 text-base font-semibold text-white transition-all hover:bg-apollo-400 hover:shadow-xl hover:shadow-apollo-500/25"
             >
-              Get Started
+              {t.hero.cta}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href="#features"
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-8 py-3.5 text-base font-semibold text-white transition hover:bg-white/10"
             >
-              Explore Features
+              {t.hero.explore}
             </a>
           </div>
         </motion.div>
@@ -89,9 +90,9 @@ export default function Hero() {
           className="mx-auto mt-20 grid max-w-3xl grid-cols-3 gap-8 rounded-2xl border border-white/5 bg-white/[0.02] px-8 py-6 backdrop-blur-sm"
         >
           {[
-            { value: "SIS + CRM", label: "Unified Platform" },
-            { value: "AI-Powered", label: "Predictive Analytics" },
-            { value: "2 Days", label: "Data Migration" },
+            { value: t.hero.statValue1, label: t.hero.statLabel1 },
+            { value: t.hero.statValue2, label: t.hero.statLabel2 },
+            { value: t.hero.statValue3, label: t.hero.statLabel3 },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-xl font-bold text-apollo-400 sm:text-2xl">

@@ -195,6 +195,51 @@ npm run db:push
 
 ---
 
+## i18n — CRITICAL: Keep Spanish in Sync
+
+**The site supports English (en) and Spanish (es).** Both dictionaries MUST stay in sync at all times.
+
+### Rules
+
+1. **NEVER add English-only text to a component.** All user-facing strings go through `useI18n()` and the dictionary files.
+2. **When adding/changing ANY text**, update BOTH files:
+   - `src/lib/i18n/en.ts` — English dictionary
+   - `src/lib/i18n/es.ts` — Spanish dictionary
+3. **When adding a new component section**, add the corresponding key group to both dictionaries FIRST, then wire the component.
+4. **When modifying existing text**, update the translation in es.ts to match the new meaning.
+5. **Test both languages** by toggling the language switcher in the navbar before committing.
+
+### How It Works
+
+- `src/lib/i18n/en.ts` — English dictionary (source of truth for key structure)
+- `src/lib/i18n/es.ts` — Spanish dictionary (must match all keys from en.ts)
+- `src/lib/i18n/context.tsx` — React context provider with `useI18n()` hook
+- Components import `useI18n` and use `t.section.key` for all text
+- Language switcher in Navbar toggles between locales
+
+### Dictionary Structure
+
+Keys are grouped by component/section:
+```
+t.nav.*           — Navigation
+t.hero.*          — Hero section
+t.features.*      — Features section
+t.productDemo.*   — Product demo dashboard
+t.whyChooseUs.*   — Why choose us
+t.ai.*            — AI section
+t.workflow.*      — Workflow steps
+t.integrations.*  — Integrations section
+t.pricing.*       — Pricing plans
+t.testimonials.*  — Testimonials
+t.about.*         — About section
+t.roi.*           — ROI calculator
+t.faq.*           — FAQ section
+t.contact.*       — Contact form
+t.footer.*        — Footer
+```
+
+---
+
 ## Before Every Commit
 
 - [ ] `npx next build` completes without errors
@@ -203,6 +248,8 @@ npm run db:push
 - [ ] Form inputs have proper `id`, `name`, `label` attributes (a11y)
 - [ ] No hardcoded secrets or connection strings
 - [ ] SVG logos are in `/public/logos/` and use viewBox for scalability
+- [ ] **All user-facing text uses `t.*` from i18n — no hardcoded English**
+- [ ] **Spanish translations in es.ts match all new/changed keys in en.ts**
 
 ---
 

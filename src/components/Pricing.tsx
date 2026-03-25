@@ -2,67 +2,70 @@
 
 import { motion } from "framer-motion";
 import { Check, Zap, Building2, Rocket } from "lucide-react";
-
-const plans = [
-  {
-    name: "Starter",
-    icon: Zap,
-    description: "For small career schools getting started",
-    price: "Contact Us",
-    priceNote: "Affordable per-student pricing",
-    features: [
-      "Command Module (SIS core)",
-      "Flight Dynamics (basic CRM)",
-      "Mission Portal (student portal)",
-      "Email support",
-      "Up to 500 students",
-      "Standard data migration",
-    ],
-    highlighted: false,
-    cta: "Get Started",
-  },
-  {
-    name: "Professional",
-    icon: Building2,
-    description: "For growing institutions that need more power",
-    price: "Contact Us",
-    priceNote: "Best value for mid-size schools",
-    features: [
-      "Everything in Starter",
-      "Mission Compliance (reporting)",
-      "Financial Navigation (billing & aid)",
-      "Apollo Intelligence (basic AI)",
-      "Priority support",
-      "Up to 2,500 students",
-      "Expedited data migration",
-      "API access",
-    ],
-    highlighted: true,
-    cta: "Get Started",
-  },
-  {
-    name: "Enterprise",
-    icon: Rocket,
-    description: "For multi-campus networks and large institutions",
-    price: "Custom",
-    priceNote: "Tailored to your mission",
-    features: [
-      "Everything in Professional",
-      "Apollo Intelligence (full suite)",
-      "Multi-campus support",
-      "Custom integrations",
-      "Dedicated success manager",
-      "Unlimited students",
-      "White-glove migration",
-      "SLA guarantee",
-      "On-premise option",
-    ],
-    highlighted: false,
-    cta: "Contact Sales",
-  },
-];
+import { useI18n } from "@/lib/i18n/context";
 
 export default function Pricing() {
+  const { t } = useI18n();
+
+  const plans = [
+    {
+      name: t.pricing.starter,
+      icon: Zap,
+      description: t.pricing.starterDesc,
+      price: t.pricing.starterPrice,
+      priceNote: t.pricing.starterNote,
+      features: [
+        t.pricing.featureCommandModule,
+        t.pricing.featureFlightDynamics,
+        t.pricing.featureMissionPortal,
+        t.pricing.featureEmailSupport,
+        t.pricing.featureUpTo500,
+        t.pricing.featureStandardMigration,
+      ],
+      highlighted: false,
+      cta: t.pricing.ctaGetStarted,
+    },
+    {
+      name: t.pricing.professional,
+      icon: Building2,
+      description: t.pricing.professionalDesc,
+      price: t.pricing.professionalPrice,
+      priceNote: t.pricing.professionalNote,
+      features: [
+        t.pricing.featureEverythingStarter,
+        t.pricing.featureMissionCompliance,
+        t.pricing.featureFinancialNav,
+        t.pricing.featureAIBasic,
+        t.pricing.featurePrioritySupport,
+        t.pricing.featureUpTo2500,
+        t.pricing.featureExpeditedMigration,
+        t.pricing.featureAPI,
+      ],
+      highlighted: true,
+      cta: t.pricing.ctaGetStarted,
+    },
+    {
+      name: t.pricing.enterprise,
+      icon: Rocket,
+      description: t.pricing.enterpriseDesc,
+      price: t.pricing.enterprisePrice,
+      priceNote: t.pricing.enterpriseNote,
+      features: [
+        t.pricing.featureEverythingPro,
+        t.pricing.featureAIFull,
+        t.pricing.featureMultiCampus,
+        t.pricing.featureCustomIntegrations,
+        t.pricing.featureDedicatedManager,
+        t.pricing.featureUnlimited,
+        t.pricing.featureWhiteGlove,
+        t.pricing.featureSLA,
+        t.pricing.featureOnPremise,
+      ],
+      highlighted: false,
+      cta: t.pricing.ctaContactSales,
+    },
+  ];
+
   return (
     <section id="pricing" className="relative py-32">
       <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-apollo-500/5 blur-[150px]" />
@@ -75,15 +78,14 @@ export default function Pricing() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-            Pricing
+            {t.pricing.label}
           </p>
           <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Plans That Fit{" "}
-            <span className="gradient-text">Your Mission</span>
+            {t.pricing.title}{" "}
+            <span className="gradient-text">{t.pricing.titleHighlight}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
-            Powerful software at a price colleges and career schools can
-            actually afford. No hidden fees, no surprises.
+            {t.pricing.description}
           </p>
         </motion.div>
 
@@ -103,7 +105,7 @@ export default function Pricing() {
             >
               {plan.highlighted && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-apollo-500 px-4 py-1 text-xs font-semibold">
-                  Most Popular
+                  {t.pricing.mostPopular}
                 </div>
               )}
 

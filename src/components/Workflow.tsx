@@ -2,31 +2,33 @@
 
 import { motion } from "framer-motion";
 import { Workflow as WorkflowIcon, ArrowRight } from "lucide-react";
-
-const steps = [
-  {
-    step: "01",
-    title: "Recruit",
-    description: "Capture leads and automate outreach campaigns",
-  },
-  {
-    step: "02",
-    title: "Enroll",
-    description: "Streamline admissions with digital applications",
-  },
-  {
-    step: "03",
-    title: "Educate",
-    description: "Track attendance, grades, and academic progress",
-  },
-  {
-    step: "04",
-    title: "Graduate",
-    description: "Ensure compliance and celebrate student success",
-  },
-];
+import { useI18n } from "@/lib/i18n/context";
 
 export default function Workflow() {
+  const { t } = useI18n();
+
+  const steps = [
+    {
+      step: "01",
+      title: t.workflow.recruit,
+      description: t.workflow.recruitDesc,
+    },
+    {
+      step: "02",
+      title: t.workflow.enroll,
+      description: t.workflow.enrollDesc,
+    },
+    {
+      step: "03",
+      title: t.workflow.educate,
+      description: t.workflow.educateDesc,
+    },
+    {
+      step: "04",
+      title: t.workflow.graduate,
+      description: t.workflow.graduateDesc,
+    },
+  ];
   return (
     <section className="relative py-32">
       <div className="mx-auto max-w-7xl px-6">
@@ -37,15 +39,14 @@ export default function Workflow() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-            How It Works
+            {t.workflow.label}
           </p>
           <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Workflow: The Fuel Behind{" "}
-            <span className="gradient-text">ApolloSRM</span>
+            {t.workflow.title}{" "}
+            <span className="gradient-text">{t.workflow.titleHighlight}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
-            From first contact to graduation, ApolloSRM automates and
-            streamlines the entire student lifecycle.
+            {t.workflow.description}
           </p>
         </motion.div>
 

@@ -2,35 +2,33 @@
 
 import { motion } from "framer-motion";
 import { Zap, Shield, Puzzle, TrendingUp } from "lucide-react";
-
-const reasons = [
-  {
-    icon: Zap,
-    title: "Modern AI-Focused Software",
-    description:
-      "Built from the ground up with AI at its core — not bolted on as an afterthought. Every feature is designed around intelligent automation.",
-  },
-  {
-    icon: Shield,
-    title: "Reliable and Extendable",
-    description:
-      "Enterprise-grade reliability with a modern architecture that grows with you. Open APIs and integrations let you connect the tools you already love.",
-  },
-  {
-    icon: Puzzle,
-    title: "Keep Your Tools, We Handle the Launch",
-    description:
-      "ApolloSRM integrates seamlessly with your existing tech stack. No rip-and-replace — just plug in and power up.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Affordable and Scalable",
-    description:
-      "Powerful software at a price colleges and career schools can actually afford. Scale from a single campus to an entire network without breaking the budget.",
-  },
-];
+import { useI18n } from "@/lib/i18n/context";
 
 export default function WhyChooseUs() {
+  const { t } = useI18n();
+
+  const reasons = [
+    {
+      icon: Zap,
+      title: t.whyChooseUs.modernAI,
+      description: t.whyChooseUs.modernAIDesc,
+    },
+    {
+      icon: Shield,
+      title: t.whyChooseUs.reliable,
+      description: t.whyChooseUs.reliableDesc,
+    },
+    {
+      icon: Puzzle,
+      title: t.whyChooseUs.keepTools,
+      description: t.whyChooseUs.keepToolsDesc,
+    },
+    {
+      icon: TrendingUp,
+      title: t.whyChooseUs.affordable,
+      description: t.whyChooseUs.affordableDesc,
+    },
+  ];
   return (
     <section className="relative py-32">
       <div className="pointer-events-none absolute left-0 bottom-0 h-[400px] w-[400px] rounded-full bg-purple-500/5 blur-[120px]" />
@@ -43,10 +41,11 @@ export default function WhyChooseUs() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-            Why We Stand Out
+            {t.whyChooseUs.label}
           </p>
           <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Why Choose <span className="gradient-text">ApolloSRM</span>
+            {t.whyChooseUs.title}{" "}
+            <span className="gradient-text">{t.whyChooseUs.titleHighlight}</span>
           </h2>
         </motion.div>
 

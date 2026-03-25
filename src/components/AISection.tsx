@@ -2,26 +2,28 @@
 
 import { motion } from "framer-motion";
 import { BrainCircuit, Target, Bell, BarChart3 } from "lucide-react";
-
-const capabilities = [
-  {
-    icon: Target,
-    title: "Predictive Retention",
-    description: "Identify at-risk students before they disengage",
-  },
-  {
-    icon: Bell,
-    title: "Smart Alerts",
-    description: "Automated notifications when intervention is needed",
-  },
-  {
-    icon: BarChart3,
-    title: "Outcome Analytics",
-    description: "Real-time dashboards tracking student success metrics",
-  },
-];
+import { useI18n } from "@/lib/i18n/context";
 
 export default function AISection() {
+  const { t } = useI18n();
+
+  const capabilities = [
+    {
+      icon: Target,
+      title: t.ai.predictiveRetention,
+      description: t.ai.predictiveRetentionDesc,
+    },
+    {
+      icon: Bell,
+      title: t.ai.smartAlerts,
+      description: t.ai.smartAlertsDesc,
+    },
+    {
+      icon: BarChart3,
+      title: t.ai.outcomeAnalytics,
+      description: t.ai.outcomeAnalyticsDesc,
+    },
+  ];
   return (
     <section className="relative overflow-hidden py-32">
       {/* Gradient background */}
@@ -37,17 +39,14 @@ export default function AISection() {
             viewport={{ once: true }}
           >
             <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-              Apollo Intelligence
+              {t.ai.label}
             </p>
             <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-              AI That Powers{" "}
-              <span className="gradient-text">Your Mission</span>
+              {t.ai.title}{" "}
+              <span className="gradient-text">{t.ai.titleHighlight}</span>
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-gray-400">
-              Our AI engine continuously analyzes student data to surface
-              actionable insights. From enrollment predictions to retention
-              risk scoring, Apollo Intelligence helps your team make
-              data-driven decisions that improve outcomes.
+              {t.ai.description}
             </p>
 
             <div className="mt-10 space-y-6">

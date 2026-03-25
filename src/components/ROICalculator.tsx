@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Calculator, TrendingUp, Clock, DollarSign, Users } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
 
 interface Inputs {
   students: number;
@@ -55,6 +56,7 @@ function formatCurrency(n: number) {
 }
 
 export default function ROICalculator() {
+  const { t } = useI18n();
   const [inputs, setInputs] = useState<Inputs>({
     students: 500,
     staffHours: 80,
@@ -81,15 +83,14 @@ export default function ROICalculator() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-            ROI Calculator
+            {t.roi.label}
           </p>
           <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            See Your{" "}
-            <span className="gradient-text">Projected Savings</span>
+            {t.roi.title}{" "}
+            <span className="gradient-text">{t.roi.titleHighlight}</span>
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-400">
-            Enter your institution&apos;s numbers to see the estimated annual
-            impact of switching to ApolloSRM.
+            {t.roi.description}
           </p>
         </motion.div>
 
@@ -103,12 +104,12 @@ export default function ROICalculator() {
           >
             <h3 className="flex items-center gap-2 text-lg font-bold">
               <Calculator className="h-5 w-5 text-apollo-400" />
-              Your Institution
+              {t.roi.yourInstitution}
             </h3>
 
             <div>
               <label className="mb-2 flex justify-between text-sm text-gray-300">
-                <span>Total enrolled students</span>
+                <span>{t.roi.totalStudents}</span>
                 <span className="font-mono text-apollo-400">{inputs.students.toLocaleString()}</span>
               </label>
               <input
@@ -124,7 +125,7 @@ export default function ROICalculator() {
 
             <div>
               <label className="mb-2 flex justify-between text-sm text-gray-300">
-                <span>Staff hours on admin tasks / week</span>
+                <span>{t.roi.staffHours}</span>
                 <span className="font-mono text-apollo-400">{inputs.staffHours}h</span>
               </label>
               <input
@@ -140,7 +141,7 @@ export default function ROICalculator() {
 
             <div>
               <label className="mb-2 flex justify-between text-sm text-gray-300">
-                <span>Average hourly staff cost</span>
+                <span>{t.roi.hourlyRate}</span>
                 <span className="font-mono text-apollo-400">${inputs.hourlyRate}</span>
               </label>
               <input
@@ -156,7 +157,7 @@ export default function ROICalculator() {
 
             <div>
               <label className="mb-2 flex justify-between text-sm text-gray-300">
-                <span>Current retention rate</span>
+                <span>{t.roi.retentionRate}</span>
                 <span className="font-mono text-apollo-400">{inputs.retentionRate}%</span>
               </label>
               <input
@@ -172,7 +173,7 @@ export default function ROICalculator() {
 
             <div>
               <label className="mb-2 flex justify-between text-sm text-gray-300">
-                <span>Average annual tuition per student</span>
+                <span>{t.roi.tuitionPerStudent}</span>
                 <span className="font-mono text-apollo-400">
                   {formatCurrency(inputs.tuitionPerStudent)}
                 </span>
@@ -201,13 +202,13 @@ export default function ROICalculator() {
             {/* Total */}
             <div className="glow rounded-2xl border border-apollo-500/20 bg-apollo-500/5 p-8 text-center">
               <p className="text-sm font-semibold uppercase tracking-wider text-apollo-300">
-                Estimated Annual Impact
+                {t.roi.estimatedImpact}
               </p>
               <p className="mt-3 text-5xl font-extrabold text-white">
                 {formatCurrency(results.totalAnnualValue)}
               </p>
               <p className="mt-2 text-sm text-gray-400">
-                per year in savings and additional revenue
+                {t.roi.perYear}
               </p>
             </div>
 
@@ -219,14 +220,15 @@ export default function ROICalculator() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold">Administrative Savings</h4>
+                    <h4 className="font-semibold">{t.roi.adminSavings}</h4>
                     <span className="text-lg font-bold text-blue-400">
                       {formatCurrency(results.adminSavings)}
                     </span>
                   </div>
                   <p className="mt-1 text-sm text-gray-400">
-                    {results.weeklyHoursSaved}h saved/week ({results.annualHoursSaved}h/year)
-                    through automation of manual tasks
+                    {t.roi.adminSavingsDesc
+                      .replace("{hours}", String(results.weeklyHoursSaved))
+                      .replace("{annual}", String(results.annualHoursSaved))}
                   </p>
                 </div>
               </div>
@@ -237,14 +239,14 @@ export default function ROICalculator() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold">Retention Revenue</h4>
+                    <h4 className="font-semibold">{t.roi.retentionRevenue}</h4>
                     <span className="text-lg font-bold text-emerald-400">
                       {formatCurrency(results.retentionRevenue)}
                     </span>
                   </div>
                   <p className="mt-1 text-sm text-gray-400">
-                    {results.additionalRetainedStudents} additional students
-                    retained through AI-powered early intervention
+                    {t.roi.retentionRevenueDesc
+                      .replace("{count}", String(results.additionalRetainedStudents))}
                   </p>
                 </div>
               </div>
@@ -255,21 +257,21 @@ export default function ROICalculator() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold">Enrollment Growth</h4>
+                    <h4 className="font-semibold">{t.roi.enrollmentGrowth}</h4>
                     <span className="text-lg font-bold text-purple-400">
                       {formatCurrency(results.enrollmentRevenue)}
                     </span>
                   </div>
                   <p className="mt-1 text-sm text-gray-400">
-                    {results.enrollmentGain} additional enrollments through
-                    optimized recruitment pipeline
+                    {t.roi.enrollmentGrowthDesc
+                      .replace("{count}", String(results.enrollmentGain))}
                   </p>
                 </div>
               </div>
             </div>
 
             <p className="text-center text-xs text-gray-600">
-              Estimates based on industry averages. Actual results may vary.
+              {t.roi.disclaimer}
             </p>
           </motion.div>
         </div>

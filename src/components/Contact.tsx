@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, ArrowRight, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 export default function Contact() {
+  const { t } = useI18n();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -27,7 +29,7 @@ export default function Contact() {
       const json = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(json.error || "Something went wrong.");
+        setErrorMsg(json.error || t.contact.errorGeneric);
         setStatus("error");
         return;
       }
@@ -35,7 +37,7 @@ export default function Contact() {
       setStatus("success");
       form.reset();
     } catch {
-      setErrorMsg("Network error. Please try again.");
+      setErrorMsg(t.contact.errorNetwork);
       setStatus("error");
     }
   }
@@ -53,14 +55,13 @@ export default function Contact() {
             className="text-center"
           >
             <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-              Contact Us
+              {t.contact.label}
             </p>
             <h2 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-              Ready for <span className="gradient-text">Liftoff?</span>
+              {t.contact.title} <span className="gradient-text">{t.contact.titleHighlight}</span>
             </h2>
             <p className="mx-auto mt-6 max-w-xl text-lg text-gray-400">
-              Let&apos;s discuss how ApolloSRM can transform your institution.
-              Reach out and our team will get back to you within 24 hours.
+              {t.contact.description}
             </p>
           </motion.div>
 
@@ -71,16 +72,15 @@ export default function Contact() {
               className="mt-12 flex flex-col items-center gap-4 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-12 text-center"
             >
               <CheckCircle className="h-12 w-12 text-emerald-400" />
-              <h3 className="text-2xl font-bold">Message Sent!</h3>
+              <h3 className="text-2xl font-bold">{t.contact.successTitle}</h3>
               <p className="text-gray-400">
-                Thanks for reaching out. Our team will get back to you within 24
-                hours.
+                {t.contact.successMessage}
               </p>
               <button
                 onClick={() => setStatus("idle")}
                 className="mt-4 text-sm text-apollo-400 transition hover:text-apollo-300"
               >
-                Send another message
+                {t.contact.sendAnother}
               </button>
             </motion.div>
           ) : (
@@ -102,27 +102,27 @@ export default function Contact() {
               <div className="grid gap-6 sm:grid-cols-2">
                 <div>
                   <label htmlFor="firstName" className="mb-2 block text-sm font-medium text-gray-300">
-                    First Name
+                    {t.contact.firstName}
                   </label>
                   <input
                     id="firstName"
                     name="firstName"
                     type="text"
                     required
-                    placeholder="John"
+                    placeholder={t.contact.firstNamePlaceholder}
                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
                   />
                 </div>
                 <div>
                   <label htmlFor="lastName" className="mb-2 block text-sm font-medium text-gray-300">
-                    Last Name
+                    {t.contact.lastName}
                   </label>
                   <input
                     id="lastName"
                     name="lastName"
                     type="text"
                     required
-                    placeholder="Doe"
+                    placeholder={t.contact.lastNamePlaceholder}
                     className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
                   />
                 </div>
@@ -130,41 +130,41 @@ export default function Contact() {
 
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-300">
-                  Email
+                  {t.contact.email}
                 </label>
                 <input
                   id="email"
                   name="email"
                   type="email"
                   required
-                  placeholder="john@school.edu"
+                  placeholder={t.contact.emailPlaceholder}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
                 />
               </div>
 
               <div>
                 <label htmlFor="institution" className="mb-2 block text-sm font-medium text-gray-300">
-                  Institution
+                  {t.contact.institution}
                 </label>
                 <input
                   id="institution"
                   name="institution"
                   type="text"
-                  placeholder="Your college or school"
+                  placeholder={t.contact.institutionPlaceholder}
                   className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
                 />
               </div>
 
               <div>
                 <label htmlFor="message" className="mb-2 block text-sm font-medium text-gray-300">
-                  Message
+                  {t.contact.message}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={4}
                   required
-                  placeholder="Tell us about your needs..."
+                  placeholder={t.contact.messagePlaceholder}
                   className="w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
                 />
               </div>
@@ -177,12 +177,12 @@ export default function Contact() {
                 {status === "submitting" ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    Sending...
+                    {t.contact.sending}
                   </>
                 ) : (
                   <>
                     <Send className="h-4 w-4" />
-                    Send Message
+                    {t.contact.send}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </>
                 )}

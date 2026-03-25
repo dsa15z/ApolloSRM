@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, ChevronDown, ChevronUp } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
 
 interface Integration {
   name: string;
@@ -25,7 +26,6 @@ const integrations: Integration[] = [
 
   // CRM / Lead Gen
   { name: "ActiveCampaign", logo: "/logos/activecampaign.svg", category: "CRM / Lead Gen" },
-  { name: "DJA", logo: "/logos/dja.svg", category: "CRM / Lead Gen", featured: true },
   { name: "HubSpot", logo: "/logos/hubspot.svg", category: "CRM / Lead Gen", featured: true },
   { name: "LeadSquared", logo: "/logos/leadsquared.svg", category: "CRM / Lead Gen", featured: true },
   { name: "Pipedrive", logo: "/logos/pipedrive.svg", category: "CRM / Lead Gen" },
@@ -102,6 +102,13 @@ const integrations: Integration[] = [
   { name: "Instagram", logo: "/logos/instagram.svg", category: "Social / Marketing" },
   { name: "LinkedIn", logo: "/logos/linkedin.svg", category: "Social / Marketing", featured: true },
 
+  // Financial Aid
+  { name: "Campus Ivy", logo: "/logos/campus-ivy.svg", category: "Financial Aid", featured: true },
+  { name: "DJA", logo: "/logos/dja.svg", category: "Financial Aid", featured: true },
+  { name: "ECM", logo: "/logos/ecm.svg", category: "Financial Aid", featured: true },
+  { name: "FAME", logo: "/logos/fame.svg", category: "Financial Aid" },
+  { name: "Global FAS", logo: "/logos/global-fas.svg", category: "Financial Aid", featured: true },
+
   // Automation
   { name: "Google Workspace", logo: "/logos/google-workspace.svg", category: "Automation", featured: true },
   { name: "Microsoft 365", logo: "/logos/microsoft-365.svg", category: "Automation", featured: true },
@@ -132,9 +139,27 @@ function IntegrationCard({ tool }: { tool: Integration }) {
 }
 
 export default function Integrations() {
+  const { t } = useI18n();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [showAll, setShowAll] = useState(false);
+
+  const categoryNames: Record<string, string> = {
+    "LMS / Education": t.integrations.catLMS,
+    "CRM / Lead Gen": t.integrations.catCRM,
+    "Communication": t.integrations.catComm,
+    "Scheduling": t.integrations.catScheduling,
+    "Documents / E-Signature": t.integrations.catDocs,
+    "Payments / Accounting": t.integrations.catPayments,
+    "Forms / Surveys": t.integrations.catForms,
+    "Project Management": t.integrations.catPM,
+    "File Storage": t.integrations.catStorage,
+    "Analytics / Reporting": t.integrations.catAnalytics,
+    "HR / Staff": t.integrations.catHR,
+    "Social / Marketing": t.integrations.catSocial,
+    "Financial Aid": t.integrations.catFinAid,
+    "Automation": t.integrations.catAutomation,
+  };
 
   const filtered = useMemo(() => {
     let result = integrations;
@@ -169,10 +194,10 @@ export default function Integrations() {
           className="text-center"
         >
           <p className="text-sm font-semibold uppercase tracking-widest text-apollo-400">
-            Keep Your Tools, We&apos;ll Handle the Launch
+            {t.integrations.label}
           </p>
           <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
-            Integrates With {integrations.length}+ Tools You Already Use
+            {t.integrations.title.replace("{count}", String(integrations.length))}
           </h2>
         </motion.div>
 
@@ -182,7 +207,7 @@ export default function Integrations() {
             <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
             <input
               type="text"
-              placeholder="Search integrations..."
+              placeholder={t.integrations.searchPlaceholder}
               value={search}
               onChange={(e) => {
                 setSearch(e.target.value);
@@ -209,7 +234,7 @@ export default function Integrations() {
                   : "border border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
               }`}
             >
-              {cat}
+              {cat === "All" ? t.integrations.all : (categoryNames[cat] ?? cat)}
             </button>
           ))}
         </div>
@@ -242,7 +267,7 @@ export default function Integrations() {
               onClick={() => setShowAll(true)}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
             >
-              Show All {integrations.length} Integrations
+              {t.integrations.showAll.replace("{count}", String(integrations.length))}
               <ChevronDown className="h-4 w-4" />
             </button>
           </div>
@@ -254,7 +279,7 @@ export default function Integrations() {
               onClick={() => setShowAll(false)}
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-6 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-white/10 hover:text-white"
             >
-              Show Featured Only
+              {t.integrations.showFeatured}
               <ChevronUp className="h-4 w-4" />
             </button>
           </div>
@@ -264,18 +289,16 @@ export default function Integrations() {
         {displayed.length === 0 && (
           <div className="mt-10 text-center">
             <p className="text-gray-400">
-              No integrations found for &ldquo;{search}&rdquo;
+              {t.integrations.noResults.replace("{query}", search)}
             </p>
             <p className="mt-2 text-sm text-gray-500">
-              Don&apos;t see what you need? We can build custom integrations via
-              our open REST API.
+              {t.integrations.noResultsHint}
             </p>
           </div>
         )}
 
         <p className="mt-8 text-center text-sm text-gray-500">
-          All integrations powered by Zapier + our open REST API and webhook
-          system.
+          {t.integrations.poweredBy}
         </p>
       </div>
     </section>

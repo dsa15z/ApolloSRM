@@ -1,26 +1,31 @@
-import { LogoFull } from "./Logo";
+"use client";
 
-const footerLinks = {
-  Product: [
-    { label: "Features", href: "/#features" },
-    { label: "Pricing", href: "/#pricing" },
-    { label: "ROI Calculator", href: "/#roi" },
-    { label: "Book a Demo", href: "/demo" },
-  ],
-  Resources: [
-    { label: "Blog", href: "/blog" },
-    { label: "Data Migration", href: "/migration" },
-    { label: "Security & Compliance", href: "/security" },
-    { label: "About", href: "/#about" },
-  ],
-  Legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Contact", href: "/#contact" },
-  ],
-};
+import { LogoFull } from "./Logo";
+import { useI18n } from "@/lib/i18n/context";
 
 export default function Footer() {
+  const { t } = useI18n();
+
+  const footerLinks = {
+    [t.footer.product]: [
+      { label: t.footer.linkFeatures, href: "/#features" },
+      { label: t.footer.linkPricing, href: "/#pricing" },
+      { label: t.footer.linkROI, href: "/#roi" },
+      { label: t.footer.linkDemo, href: "/demo" },
+    ],
+    [t.footer.resources]: [
+      { label: t.footer.linkBlog, href: "/blog" },
+      { label: t.footer.linkMigration, href: "/migration" },
+      { label: t.footer.linkSecurity, href: "/security" },
+      { label: t.footer.linkAbout, href: "/#about" },
+    ],
+    [t.footer.legal]: [
+      { label: t.footer.linkPrivacy, href: "/privacy" },
+      { label: t.footer.linkTerms, href: "#" },
+      { label: t.footer.linkContact, href: "/#contact" },
+    ],
+  };
+
   return (
     <footer className="border-t border-white/5 bg-navy-950">
       <div className="mx-auto max-w-7xl px-6 py-16">
@@ -31,8 +36,7 @@ export default function Footer() {
               <LogoFull />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-500">
-              Smart. Simple. Seamless. The all-in-one SIS + CRM platform
-              built for colleges and career schools.
+              {t.footer.tagline}
             </p>
           </div>
 
@@ -61,10 +65,10 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 sm:flex-row">
           <p className="text-sm text-gray-600">
-            &copy; {new Date().getFullYear()} ApolloSRM. All rights reserved.
+            &copy; {new Date().getFullYear()} {t.footer.copyright}
           </p>
           <p className="text-sm text-gray-600">
-            Apollo SRM, Inc.
+            {t.footer.company}
           </p>
         </div>
       </div>
