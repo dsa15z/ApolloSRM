@@ -2,6 +2,81 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import nodemailer from "nodemailer";
 
+async function createHubSpotContact(data: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  institution: string;
+  message: string;
+}) {
+  const apiKey = process.env.HUBSPOT_API_KEY;
+  if (!apiKey) {
+    console.log("HUBSPOT_API_KEY not configured — skipping HubSpot sync");
+    return;
+  }
+
+  // First try to create the contact
+  const response = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      properties: {
+        firstname: data.firstName,
+        lastname: data.lastName,
+        email: data.email,
+        company: data.institution || undefined,
+        hs_lead_status: "NEW",
+        lifecyclestage: "lead",
+        message: data.message,
+      },
+    }),
+  });
+
+  if (response.ok) {
+    const result = await response.json();
+    console.log("HubSpot contact created:", result.id);
+    return result.id;
+  }
+
+  // If contact already exists (409 conflict), update instead
+  if (response.status === 409) {
+    const error = await response.json();
+    const existingId = error.message?.match(/Existing ID: (\d+)/)?.[1];
+
+    if (existingId) {
+      const updateResponse = await fetch(
+        `https://api.hubapi.com/crm/v3/objects/contacts/${existingId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            properties: {
+              firstname: data.firstName,
+              lastname: data.lastName,
+              company: data.institution || undefined,
+              message: data.message,
+            },
+          }),
+        }
+      );
+
+      if (updateResponse.ok) {
+        console.log("HubSpot contact updated:", existingId);
+        return existingId;
+      }
+    }
+  }
+
+  const errorText = await response.text();
+  throw new Error(`HubSpot API error (${response.status}): ${errorText}`);
+}
+
 async function sendNotificationEmail(data: {
   firstName: string;
   lastName: string;
@@ -115,6 +190,11 @@ export async function POST(request: NextRequest) {
     // Send email notification (non-blocking — don't fail the request if email fails)
     sendNotificationEmail(trimmedData).catch((err) => {
       console.error("Failed to send notification email:", err);
+    });
+
+    // Create/update HubSpot contact as a new lead (non-blocking)
+    createHubSpotContact(trimmedData).catch((err) => {
+      console.error("Failed to sync contact to HubSpot:", err);
     });
 
     return NextResponse.json(
