@@ -5,6 +5,7 @@ const en = {
     about: "About",
     contact: "Contact",
     getStarted: "Get Started",
+    comparison: "Compare",
   },
   hero: {
     badge: "AI-Powered Student Relationship Management",
@@ -27,25 +28,127 @@ const en = {
     title1: "Everything You Need.",
     titleHighlight: "One Platform.",
     description:
-      "SRM = SIS + CRM. Apollo unifies student information management with relationship tracking into a single, AI-powered platform.",
+      "SRM = SIS + CRM. Apollo unifies student information management with relationship tracking into a single, AI-powered platform — with 12 integrated modules.",
+    // Module 1: Command Module (SIS Core)
     commandModule: "Command Module",
     commandModuleDesc:
       "Comprehensive student record and enrollment management. Track every detail from admissions through graduation in one unified system.",
+    subStudentRecords: "Complete student records & profiles",
+    subEnrollmentMgmt: "Enrollment & registration management",
+    subAttendanceTracking: "Attendance tracking & dashboards",
+    subGradeManagement: "Grade management & transcripts",
+    subTermAcademic: "Term & academic period setup",
+    subDocumentMgmt: "Document management & storage",
+    // Module 2: Flight Dynamics (CRM)
     flightDynamics: "Flight Dynamics",
     flightDynamicsDesc:
       "Recruitment and admissions tracking with automated outreach. Convert leads to enrolled students with intelligent campaign workflows.",
+    subLeadCapture: "Lead capture & source tracking",
+    subCampaignAutomation: "Campaign automation & sequencing",
+    subAdmissionsWorkflow: "Admissions workflow management",
+    subProspectTracking: "Prospect pipeline & status tracking",
+    subChecklistMgmt: "Checklist & requirement management",
+    subLeadSourceAnalytics: "Lead source ROI analytics",
+    // Module 3: Mission Compliance
     missionCompliance: "Mission Compliance",
     missionComplianceDesc:
       "Built-in reporting and regulatory compliance tools. Stay audit-ready with automated compliance checks and real-time dashboards.",
+    subIPEDSReporting: "Full IPEDS reporting suite (E12, C, IC, EF)",
+    subFISAP: "FISAP report generation",
+    sub9010Calc: "90/10 calculation & disclosure",
+    sub1098T: "1098-T tax reporting",
+    subNCSARA: "NC-SARA state authorization",
+    subAuditTrail: "Complete audit trail & logging",
+    // Module 4: Financial Navigation
     financialNavigation: "Financial Navigation",
     financialNavigationDesc:
       "Tuition billing, financial aid management, and accounting integration. Simplify the financial lifecycle from enrollment to completion.",
+    subTuitionBilling: "Tuition billing & invoicing",
+    subFinancialAid: "Financial aid packaging & tracking",
+    subPaymentPlans: "Flexible payment plan management",
+    subStudentLedger: "Student ledger & account balances",
+    subISIR: "ISIR import & needs analysis",
+    subStripeIntegration: "Stripe payment integration",
+    // Module 5: Apollo Intelligence (AI)
     apolloIntelligence: "Apollo Intelligence",
     apolloIntelligenceDesc:
       "Predictive analytics that identify at-risk students before they fall behind. AI-driven insights to boost retention and outcomes.",
+    subPredictiveRetention: "Predictive retention scoring",
+    subSmartAlerts: "Smart alerts & early intervention",
+    subOutcomeAnalytics: "Outcome analytics & dashboards",
+    subPopulationReports: "Population & cohort reports",
+    subAdHocReports: "Ad hoc report builder",
+    subSQLActions: "SQL actions & custom queries",
+    // Module 6: Mission Portal
     missionPortal: "Mission Portal",
     missionPortalDesc:
       "Self-service portals for students, faculty, and staff. Everyone gets a personalized dashboard with exactly what they need.",
+    subAdminDashboard: "Admin command center dashboard",
+    subStudentPortal: "Student self-service portal",
+    subParentPortal: "Parent access portal",
+    subTeacherPortal: "Teacher & faculty portal",
+    subRolePermissions: "Role-based permissions & access control",
+    subMFA: "MFA & SSO authentication",
+    // Module 7: Academic Operations
+    academicOps: "Academic Operations",
+    academicOpsDesc:
+      "Full academic program and course management. Configure programs, catalogs, and offerings with complete grade tracking.",
+    subProgramMgmt: "Program creation & management",
+    subCourseCatalog: "Course catalog & prerequisites",
+    subCourseOfferings: "Course offering scheduling",
+    subGradeSetup: "Grade scale & activity setup",
+    subClockCreditHours: "Clock hour & credit hour tracking",
+    subBackfillGrades: "Grade backfill & audit tools",
+    // Module 8: Campus Operations
+    campusOps: "Campus Operations",
+    campusOpsDesc:
+      "Multi-campus management with centralized control. Handle employees, rooms, events, and scheduling across all locations.",
+    subMultiCampus: "Multi-campus administration",
+    subEmployeeMgmt: "Employee management & records",
+    subRoomScheduling: "Room & facility scheduling",
+    subNonWorkingDays: "Holiday & non-working day management",
+    subEventsMgmt: "Events setup & management",
+    subAnnouncementsInternal: "Institutional announcements",
+    // Module 9: Workflow Engine
+    workflowEngine: "Workflow Engine",
+    workflowEngineDesc:
+      "Automate complex processes with configurable workflows, triggers, and bulk operations. Eliminate manual tasks across every department.",
+    subCustomWorkflows: "Custom workflow builder",
+    subStatusSetup: "Status & lifecycle management",
+    subChecklistCampaigns: "Checklist campaign automation",
+    subBulkOperations: "Bulk operations & batch processing",
+    subImportExport: "Data import & export tools",
+    subSQLTriggers: "SQL triggers & automations",
+    // Module 10: Communications
+    communications: "Communications Hub",
+    communicationsDesc:
+      "Unified messaging across email, SMS, and internal channels. Branded templates and automated outreach keep everyone connected.",
+    subEmailCampaigns: "Email campaign management",
+    subSMSConfig: "SMS messaging & configuration",
+    subMessageTemplates: "Message template builder",
+    subInternalMessaging: "Internal messaging system",
+    subEmailBranding: "Email branding & design",
+    subAnnouncements: "Broadcast announcements",
+    // Module 11: Reporting & Analytics
+    reportingAnalytics: "Reporting & Analytics",
+    reportingAnalyticsDesc:
+      "Powerful reporting engine with custom reports, templates, and a visual query builder. Get the data you need in seconds.",
+    subCustomReports: "Custom report creation",
+    subReportTemplates: "Report templates & scheduling",
+    subFilterBuilder: "Visual filter builder",
+    subGroupReports: "Group & cohort reports",
+    subQueryTree: "Query tree explorer",
+    subPageVisitAnalytics: "Page visit analytics",
+    // Module 12: Integration Hub
+    integrationHub: "Integration Hub",
+    integrationHubDesc:
+      "Connect with your existing tools through native integrations. Canvas, Moodle, Google Classroom, and 40+ platforms via open API.",
+    subCanvasLMS: "Canvas LMS integration",
+    subGoogleClassroom: "Google Classroom sync",
+    subMoodle: "Moodle LMS connector",
+    subLeadSquared: "LeadSquared CRM bridge",
+    subZohoSAP: "Zoho & SAP connectors",
+    subOpenAPI: "Open REST API & webhooks",
   },
   productDemo: {
     label: "See It In Action",
@@ -140,6 +243,96 @@ const en = {
     catSocial: "Social / Marketing",
     catFinAid: "Financial Aid",
     catAutomation: "Automation",
+  },
+  comparison: {
+    label: "How We Compare",
+    title: "ApolloSRM vs",
+    titleHighlight: "The Competition",
+    description:
+      "See how ApolloSRM stacks up against legacy student information systems. More features, modern AI, and better value — all included.",
+    featureLabel: "Feature",
+    // Category headers
+    catCore: "Core SIS",
+    catCRM: "CRM & Recruitment",
+    catCompliance: "Compliance & Reporting",
+    catFinance: "Finance & Financial Aid",
+    catAI: "AI & Intelligence",
+    catPortals: "Portals & Access",
+    catIntegrations: "Integrations",
+    catExperience: "Platform Experience",
+    // Core SIS features
+    studentRecords: "Student Records & Profiles",
+    enrollmentMgmt: "Enrollment Management",
+    attendanceTracking: "Attendance Tracking",
+    gradeManagement: "Grade Management",
+    documentMgmt: "Document Management",
+    multiCampus: "Multi-Campus Support",
+    // CRM features
+    builtInCRM: "Built-in CRM",
+    leadCapture: "Lead Capture & Tracking",
+    campaignAutomation: "Campaign Automation",
+    prospectTracking: "Prospect Pipeline",
+    leadSourceAnalytics: "Lead Source Analytics",
+    // Compliance features
+    ipedsReporting: "IPEDS Reporting Suite",
+    fisap: "FISAP Reports",
+    calc9010: "90/10 Calculation",
+    tax1098T: "1098-T Tax Reporting",
+    ncsara: "NC-SARA Authorization",
+    auditTrail: "Full Audit Trail",
+    // Finance features
+    tuitionBilling: "Tuition Billing",
+    financialAidMgmt: "Financial Aid Management",
+    paymentProcessing: "Payment Processing",
+    studentLedger: "Student Ledger",
+    isirImport: "ISIR Import",
+    paymentPlans: "Payment Plan Management",
+    // AI features
+    predictiveAnalytics: "Predictive Analytics",
+    atRiskAlerts: "At-Risk Student Alerts",
+    retentionScoring: "Retention Scoring",
+    smartRecommendations: "Smart Recommendations",
+    // Portal features
+    adminDashboard: "Admin Dashboard",
+    studentPortal: "Student Portal",
+    parentPortal: "Parent Portal",
+    teacherPortal: "Teacher / Faculty Portal",
+    mobileAccess: "Mobile Access",
+    mfaSso: "MFA & SSO",
+    // Integration features
+    lmsIntegration: "LMS Integration",
+    openAPI: "Open REST API",
+    zapierWebhooks: "Zapier & Webhooks",
+    googleClassroom: "Google Classroom",
+    accountingSoftware: "Accounting Software",
+    // Experience features
+    modernUI: "Modern UI / UX",
+    bilingualSupport: "Bilingual (EN/ES)",
+    dataMigration: "Fast Data Migration",
+    aiPowered: "AI-Powered Platform",
+    customWorkflows: "Custom Workflows",
+    placementServices: "Placement / Career Services",
+    // Notes
+    noteNative: "Native",
+    noteLeadSquared: "via LeadSquared",
+    noteDiamondPay: "DiamondPay",
+    noteStripe: "Stripe",
+    noteDiamondLMS: "DiamondLMS",
+    noteCanvasMoodle: "Canvas, Moodle +",
+    noteLimited: "Limited",
+    noteLegacyUI: "Legacy",
+    noteEnEs: "EN/ES",
+    note2Days: "~2 days",
+    noteWeeks: "Weeks+",
+    noteJobWise: "JobWise",
+    // Legend
+    legendIncluded: "Included",
+    legendPartial: "Partial / Limited",
+    legendNotAvailable: "Not Available",
+    legendAddon: "Paid Add-on",
+    // Disclaimer
+    disclaimer:
+      "Comparison based on publicly available information as of March 2025. Features may vary by plan or version.",
   },
   pricing: {
     label: "Pricing",
@@ -311,6 +504,7 @@ const en = {
     linkPrivacy: "Privacy Policy",
     linkTerms: "Terms of Service",
     linkContact: "Contact",
+    linkComparison: "Compare",
   },
 };
 

@@ -6,6 +6,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import AISection from "@/components/AISection";
 import Workflow from "@/components/Workflow";
 import Integrations from "@/components/Integrations";
+import ComparisonMatrix from "@/components/ComparisonMatrix";
 import Pricing from "@/components/Pricing";
 import Testimonials from "@/components/Testimonials";
 import About from "@/components/About";
@@ -27,6 +28,7 @@ export default function Home() {
         <AISection />
         <Workflow />
         <Integrations />
+        <ComparisonMatrix />
         <Pricing />
         <Testimonials />
         <About />

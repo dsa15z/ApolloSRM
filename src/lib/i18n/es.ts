@@ -7,6 +7,7 @@ const es: Dictionary = {
     about: "Acerca de",
     contact: "Contacto",
     getStarted: "Comenzar",
+    comparison: "Comparar",
   },
   hero: {
     badge: "Gestión de Relaciones Estudiantiles con IA",
@@ -29,25 +30,127 @@ const es: Dictionary = {
     title1: "Todo Lo Que Necesita.",
     titleHighlight: "Una Plataforma.",
     description:
-      "SRM = SIS + CRM. Apollo unifica la gestión de información estudiantil con seguimiento de relaciones en una sola plataforma impulsada por IA.",
+      "SRM = SIS + CRM. Apollo unifica la gestión de información estudiantil con seguimiento de relaciones en una sola plataforma impulsada por IA — con 12 módulos integrados.",
+    // Módulo 1: Módulo de Comando (SIS Central)
     commandModule: "Módulo de Comando",
     commandModuleDesc:
       "Gestión integral de registros estudiantiles y matrículas. Rastree cada detalle desde la admisión hasta la graduación en un solo sistema unificado.",
+    subStudentRecords: "Registros y perfiles estudiantiles completos",
+    subEnrollmentMgmt: "Gestión de matrículas e inscripciones",
+    subAttendanceTracking: "Seguimiento de asistencia y paneles",
+    subGradeManagement: "Gestión de calificaciones y expedientes",
+    subTermAcademic: "Configuración de períodos académicos",
+    subDocumentMgmt: "Gestión y almacenamiento de documentos",
+    // Módulo 2: Dinámica de Vuelo (CRM)
     flightDynamics: "Dinámica de Vuelo",
     flightDynamicsDesc:
       "Seguimiento de reclutamiento y admisiones con alcance automatizado. Convierta prospectos en estudiantes matriculados con flujos de trabajo inteligentes.",
+    subLeadCapture: "Captura de prospectos y rastreo de fuentes",
+    subCampaignAutomation: "Automatización y secuencias de campañas",
+    subAdmissionsWorkflow: "Gestión de flujo de admisiones",
+    subProspectTracking: "Pipeline y seguimiento de prospectos",
+    subChecklistMgmt: "Gestión de listas de verificación y requisitos",
+    subLeadSourceAnalytics: "Análisis de ROI por fuente de prospectos",
+    // Módulo 3: Cumplimiento de Misión
     missionCompliance: "Cumplimiento de Misión",
     missionComplianceDesc:
       "Herramientas integradas de reportes y cumplimiento regulatorio. Manténgase listo para auditorías con verificaciones automáticas y paneles en tiempo real.",
+    subIPEDSReporting: "Suite completa de reportes IPEDS (E12, C, IC, EF)",
+    subFISAP: "Generación de reportes FISAP",
+    sub9010Calc: "Cálculo y divulgación 90/10",
+    sub1098T: "Reportes fiscales 1098-T",
+    subNCSARA: "Autorización estatal NC-SARA",
+    subAuditTrail: "Registro completo de auditoría",
+    // Módulo 4: Navegación Financiera
     financialNavigation: "Navegación Financiera",
     financialNavigationDesc:
       "Facturación de matrícula, gestión de ayuda financiera e integración contable. Simplifique el ciclo financiero desde la inscripción hasta la finalización.",
+    subTuitionBilling: "Facturación de matrícula",
+    subFinancialAid: "Empaquetamiento y seguimiento de ayuda financiera",
+    subPaymentPlans: "Gestión flexible de planes de pago",
+    subStudentLedger: "Libro mayor y saldos estudiantiles",
+    subISIR: "Importación ISIR y análisis de necesidades",
+    subStripeIntegration: "Integración de pagos con Stripe",
+    // Módulo 5: Inteligencia Apollo (IA)
     apolloIntelligence: "Inteligencia Apollo",
     apolloIntelligenceDesc:
       "Análisis predictivo que identifica estudiantes en riesgo antes de que se atrasen. Información impulsada por IA para mejorar la retención y resultados.",
+    subPredictiveRetention: "Puntuación predictiva de retención",
+    subSmartAlerts: "Alertas inteligentes e intervención temprana",
+    subOutcomeAnalytics: "Análisis de resultados y paneles",
+    subPopulationReports: "Reportes de población y cohortes",
+    subAdHocReports: "Constructor de reportes ad hoc",
+    subSQLActions: "Acciones SQL y consultas personalizadas",
+    // Módulo 6: Portal de Misión
     missionPortal: "Portal de Misión",
     missionPortalDesc:
       "Portales de autoservicio para estudiantes, profesores y personal. Cada uno obtiene un panel personalizado con exactamente lo que necesita.",
+    subAdminDashboard: "Panel de centro de comando administrativo",
+    subStudentPortal: "Portal de autoservicio estudiantil",
+    subParentPortal: "Portal de acceso para padres",
+    subTeacherPortal: "Portal para profesores y docentes",
+    subRolePermissions: "Permisos y control de acceso por roles",
+    subMFA: "Autenticación MFA y SSO",
+    // Módulo 7: Operaciones Académicas
+    academicOps: "Operaciones Académicas",
+    academicOpsDesc:
+      "Gestión completa de programas y cursos académicos. Configure programas, catálogos y ofertas con seguimiento completo de calificaciones.",
+    subProgramMgmt: "Creación y gestión de programas",
+    subCourseCatalog: "Catálogo de cursos y prerrequisitos",
+    subCourseOfferings: "Programación de ofertas de cursos",
+    subGradeSetup: "Configuración de escalas y actividades de calificación",
+    subClockCreditHours: "Seguimiento de horas reloj y crédito",
+    subBackfillGrades: "Herramientas de retroalimentación y auditoría de calificaciones",
+    // Módulo 8: Operaciones de Campus
+    campusOps: "Operaciones de Campus",
+    campusOpsDesc:
+      "Gestión multi-campus con control centralizado. Administre empleados, salones, eventos y horarios en todas las ubicaciones.",
+    subMultiCampus: "Administración multi-campus",
+    subEmployeeMgmt: "Gestión y registros de empleados",
+    subRoomScheduling: "Programación de salones e instalaciones",
+    subNonWorkingDays: "Gestión de feriados y días no laborables",
+    subEventsMgmt: "Configuración y gestión de eventos",
+    subAnnouncementsInternal: "Anuncios institucionales",
+    // Módulo 9: Motor de Flujos de Trabajo
+    workflowEngine: "Motor de Flujos de Trabajo",
+    workflowEngineDesc:
+      "Automatice procesos complejos con flujos de trabajo configurables, disparadores y operaciones masivas. Elimine tareas manuales en cada departamento.",
+    subCustomWorkflows: "Constructor de flujos personalizados",
+    subStatusSetup: "Gestión de estados y ciclos de vida",
+    subChecklistCampaigns: "Automatización de campañas de listas de verificación",
+    subBulkOperations: "Operaciones masivas y procesamiento por lotes",
+    subImportExport: "Herramientas de importación y exportación de datos",
+    subSQLTriggers: "Disparadores y automatizaciones SQL",
+    // Módulo 10: Comunicaciones
+    communications: "Centro de Comunicaciones",
+    communicationsDesc:
+      "Mensajería unificada por correo electrónico, SMS y canales internos. Plantillas de marca y alcance automatizado mantienen a todos conectados.",
+    subEmailCampaigns: "Gestión de campañas de correo electrónico",
+    subSMSConfig: "Mensajería SMS y configuración",
+    subMessageTemplates: "Constructor de plantillas de mensajes",
+    subInternalMessaging: "Sistema de mensajería interna",
+    subEmailBranding: "Diseño y marca de correo electrónico",
+    subAnnouncements: "Anuncios masivos",
+    // Módulo 11: Reportes y Análisis
+    reportingAnalytics: "Reportes y Análisis",
+    reportingAnalyticsDesc:
+      "Motor de reportes poderoso con reportes personalizados, plantillas y constructor visual de consultas. Obtenga los datos que necesita en segundos.",
+    subCustomReports: "Creación de reportes personalizados",
+    subReportTemplates: "Plantillas y programación de reportes",
+    subFilterBuilder: "Constructor visual de filtros",
+    subGroupReports: "Reportes de grupos y cohortes",
+    subQueryTree: "Explorador de árbol de consultas",
+    subPageVisitAnalytics: "Análisis de visitas a páginas",
+    // Módulo 12: Centro de Integraciones
+    integrationHub: "Centro de Integraciones",
+    integrationHubDesc:
+      "Conéctese con sus herramientas existentes mediante integraciones nativas. Canvas, Moodle, Google Classroom y más de 40 plataformas vía API abierta.",
+    subCanvasLMS: "Integración con Canvas LMS",
+    subGoogleClassroom: "Sincronización con Google Classroom",
+    subMoodle: "Conector Moodle LMS",
+    subLeadSquared: "Puente con LeadSquared CRM",
+    subZohoSAP: "Conectores Zoho y SAP",
+    subOpenAPI: "API REST abierta y webhooks",
   },
   productDemo: {
     label: "Véalo en Acción",
@@ -143,6 +246,96 @@ const es: Dictionary = {
     catSocial: "Redes Sociales / Marketing",
     catFinAid: "Ayuda Financiera",
     catAutomation: "Automatización",
+  },
+  comparison: {
+    label: "Cómo Nos Comparamos",
+    title: "ApolloSRM vs",
+    titleHighlight: "La Competencia",
+    description:
+      "Vea cómo ApolloSRM se compara con los sistemas de información estudiantil heredados. Más funciones, IA moderna y mejor valor — todo incluido.",
+    featureLabel: "Característica",
+    // Encabezados de categoría
+    catCore: "SIS Central",
+    catCRM: "CRM y Reclutamiento",
+    catCompliance: "Cumplimiento y Reportes",
+    catFinance: "Finanzas y Ayuda Financiera",
+    catAI: "IA e Inteligencia",
+    catPortals: "Portales y Acceso",
+    catIntegrations: "Integraciones",
+    catExperience: "Experiencia de Plataforma",
+    // Funciones SIS Central
+    studentRecords: "Registros y Perfiles Estudiantiles",
+    enrollmentMgmt: "Gestión de Matrículas",
+    attendanceTracking: "Seguimiento de Asistencia",
+    gradeManagement: "Gestión de Calificaciones",
+    documentMgmt: "Gestión de Documentos",
+    multiCampus: "Soporte Multi-Campus",
+    // Funciones CRM
+    builtInCRM: "CRM Integrado",
+    leadCapture: "Captura y Rastreo de Prospectos",
+    campaignAutomation: "Automatización de Campañas",
+    prospectTracking: "Pipeline de Prospectos",
+    leadSourceAnalytics: "Análisis de Fuentes de Prospectos",
+    // Funciones de Cumplimiento
+    ipedsReporting: "Suite de Reportes IPEDS",
+    fisap: "Reportes FISAP",
+    calc9010: "Cálculo 90/10",
+    tax1098T: "Reportes Fiscales 1098-T",
+    ncsara: "Autorización NC-SARA",
+    auditTrail: "Registro Completo de Auditoría",
+    // Funciones Financieras
+    tuitionBilling: "Facturación de Matrícula",
+    financialAidMgmt: "Gestión de Ayuda Financiera",
+    paymentProcessing: "Procesamiento de Pagos",
+    studentLedger: "Libro Mayor Estudiantil",
+    isirImport: "Importación ISIR",
+    paymentPlans: "Gestión de Planes de Pago",
+    // Funciones de IA
+    predictiveAnalytics: "Análisis Predictivo",
+    atRiskAlerts: "Alertas de Estudiantes en Riesgo",
+    retentionScoring: "Puntuación de Retención",
+    smartRecommendations: "Recomendaciones Inteligentes",
+    // Funciones de Portales
+    adminDashboard: "Panel Administrativo",
+    studentPortal: "Portal Estudiantil",
+    parentPortal: "Portal para Padres",
+    teacherPortal: "Portal de Profesores / Docentes",
+    mobileAccess: "Acceso Móvil",
+    mfaSso: "MFA y SSO",
+    // Funciones de Integración
+    lmsIntegration: "Integración LMS",
+    openAPI: "API REST Abierta",
+    zapierWebhooks: "Zapier y Webhooks",
+    googleClassroom: "Google Classroom",
+    accountingSoftware: "Software Contable",
+    // Funciones de Experiencia
+    modernUI: "Interfaz Moderna",
+    bilingualSupport: "Bilingüe (EN/ES)",
+    dataMigration: "Migración Rápida de Datos",
+    aiPowered: "Plataforma Impulsada por IA",
+    customWorkflows: "Flujos de Trabajo Personalizados",
+    placementServices: "Servicios de Colocación / Carrera",
+    // Notas
+    noteNative: "Nativo",
+    noteLeadSquared: "vía LeadSquared",
+    noteDiamondPay: "DiamondPay",
+    noteStripe: "Stripe",
+    noteDiamondLMS: "DiamondLMS",
+    noteCanvasMoodle: "Canvas, Moodle +",
+    noteLimited: "Limitado",
+    noteLegacyUI: "Heredado",
+    noteEnEs: "EN/ES",
+    note2Days: "~2 días",
+    noteWeeks: "Semanas+",
+    noteJobWise: "JobWise",
+    // Leyenda
+    legendIncluded: "Incluido",
+    legendPartial: "Parcial / Limitado",
+    legendNotAvailable: "No Disponible",
+    legendAddon: "Complemento de Pago",
+    // Descargo
+    disclaimer:
+      "Comparación basada en información disponible públicamente a marzo de 2025. Las funciones pueden variar según el plan o la versión.",
   },
   pricing: {
     label: "Precios",
@@ -316,6 +509,7 @@ const es: Dictionary = {
     linkPrivacy: "Política de Privacidad",
     linkTerms: "Términos de Servicio",
     linkContact: "Contacto",
+    linkComparison: "Comparar",
   },
 };
 
