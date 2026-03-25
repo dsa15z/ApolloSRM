@@ -1,19 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
-// SVG icon representations of common integrations (abstract/generic)
 const integrations = [
-  { name: "QuickBooks", abbr: "QB" },
-  { name: "Google Workspace", abbr: "GW" },
-  { name: "Microsoft 365", abbr: "365" },
-  { name: "Zoom", abbr: "ZM" },
-  { name: "Canvas LMS", abbr: "CV" },
-  { name: "Moodle", abbr: "MDL" },
-  { name: "Stripe", abbr: "ST" },
-  { name: "Salesforce", abbr: "SF" },
-  { name: "Slack", abbr: "SL" },
-  { name: "Twilio", abbr: "TW" },
+  { name: "QuickBooks", logo: "/logos/quickbooks.svg" },
+  { name: "Google Workspace", logo: "/logos/google-workspace.svg" },
+  { name: "Microsoft 365", logo: "/logos/microsoft-365.svg" },
+  { name: "Zoom", logo: "/logos/zoom.svg" },
+  { name: "Canvas LMS", logo: "/logos/canvas.svg" },
+  { name: "Moodle", logo: "/logos/moodle.svg" },
+  { name: "Stripe", logo: "/logos/stripe.svg" },
+  { name: "Salesforce", logo: "/logos/salesforce.svg" },
+  { name: "Slack", logo: "/logos/slack.svg" },
+  { name: "Twilio", logo: "/logos/twilio.svg" },
 ];
 
 export default function Integrations() {
@@ -48,12 +48,16 @@ export default function Integrations() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 + i * 0.05 }}
-              className="group flex h-20 w-28 flex-col items-center justify-center rounded-xl border border-white/5 bg-white/[0.02] transition hover:border-apollo-500/20 hover:bg-white/[0.04]"
+              className="group flex h-24 w-32 flex-col items-center justify-center gap-2 rounded-xl border border-white/5 bg-white/[0.02] transition hover:border-apollo-500/20 hover:bg-white/[0.04]"
             >
-              <span className="text-lg font-bold text-gray-400 transition group-hover:text-apollo-400">
-                {tool.abbr}
-              </span>
-              <span className="mt-1 text-[10px] text-gray-600 transition group-hover:text-gray-400">
+              <Image
+                src={tool.logo}
+                alt={`${tool.name} logo`}
+                width={36}
+                height={36}
+                className="opacity-70 transition group-hover:opacity-100"
+              />
+              <span className="text-[11px] font-medium text-gray-500 transition group-hover:text-gray-300">
                 {tool.name}
               </span>
             </motion.div>
