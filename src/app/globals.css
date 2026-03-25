@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #031225;
+  --color-navy-900: #052044;
+  --color-navy-800: #073763;
+  --color-navy-700: #0a4e82;
+  --color-navy-600: #0d65a1;
+  --color-apollo-500: #2794eb;
+  --color-apollo-400: #52aaf0;
+  --color-apollo-300: #7dc0f5;
+  --color-apollo-200: #a8d6f9;
+  --color-apollo-100: #d3ebfc;
+  --color-apollo-50: #eaf5fe;
+  --color-slate-text: #1a1919;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-apollo-300), var(--color-apollo-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Star field animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Glow effect */
+.glow {
+  box-shadow: 0 0 20px rgba(39, 148, 235, 0.3), 0 0 60px rgba(39, 148, 235, 0.1);
+}
+
+.glow-strong {
+  box-shadow: 0 0 30px rgba(39, 148, 235, 0.5), 0 0 80px rgba(39, 148, 235, 0.2);
+}
