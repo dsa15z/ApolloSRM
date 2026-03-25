@@ -20,15 +20,18 @@ export function LogoIcon({ className = "", size = 32 }: LogoProps) {
 
 export function LogoFull({ className = "" }: { className?: string }) {
   return (
-    <span className={`flex items-center ${className}`}>
+    <span className={`flex items-center gap-2 ${className}`}>
       <Image
-        src="/logos/apollo-logo-white.png"
-        alt="ApolloSRM — Student Relationship Manager"
-        width={140}
-        height={48}
-        className="h-8 w-auto"
+        src="/logos/apollo-rocket-white.png"
+        alt=""
+        width={28}
+        height={28}
+        className="h-7 w-7"
         priority
       />
+      <span className="text-xl font-bold tracking-tight">
+        Apollo<span className="text-apollo-500">SRM</span>
+      </span>
     </span>
   );
 }
