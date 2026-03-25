@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     "enrollment management",
   ],
   icons: {
-    icon: "/favicon.svg",
+    icon: "/logos/apollo-rocket-dark.png",
+    apple: "/logos/apollo-rocket-dark.png",
   },
   openGraph: {
     title: "ApolloSRM — The Future of Student Relationships",
