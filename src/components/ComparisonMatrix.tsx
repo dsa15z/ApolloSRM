@@ -10,8 +10,10 @@ interface ComparisonRow {
   feature: string;
   apollo: Status;
   diamond: Status;
+  studentFirst: Status;
   apolloNote?: string;
   diamondNote?: string;
+  studentFirstNote?: string;
 }
 
 interface ComparisonCategory {
@@ -63,85 +65,85 @@ export default function ComparisonMatrix() {
     {
       category: t.comparison.catCore,
       rows: [
-        { feature: t.comparison.studentRecords, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.enrollmentMgmt, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.attendanceTracking, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.gradeManagement, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.documentMgmt, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.multiCampus, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLimited },
+        { feature: t.comparison.studentRecords, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.enrollmentMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.attendanceTracking, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.gradeManagement, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.documentMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.multiCampus, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLimited, studentFirst: "yes", studentFirstNote: t.comparison.noteMultiInstitution },
       ],
     },
     {
       category: t.comparison.catCRM,
       rows: [
-        { feature: t.comparison.builtInCRM, apollo: "yes", apolloNote: t.comparison.noteNative, diamond: "addon", diamondNote: t.comparison.noteLeadSquared },
-        { feature: t.comparison.leadCapture, apollo: "yes", diamond: "addon" },
-        { feature: t.comparison.campaignAutomation, apollo: "yes", diamond: "addon" },
-        { feature: t.comparison.prospectTracking, apollo: "yes", diamond: "partial" },
-        { feature: t.comparison.leadSourceAnalytics, apollo: "yes", diamond: "partial" },
+        { feature: t.comparison.builtInCRM, apollo: "yes", apolloNote: t.comparison.noteNative, diamond: "addon", diamondNote: t.comparison.noteLeadSquared, studentFirst: "partial", studentFirstNote: t.comparison.noteBasicRecruitment },
+        { feature: t.comparison.leadCapture, apollo: "yes", diamond: "addon", studentFirst: "partial" },
+        { feature: t.comparison.campaignAutomation, apollo: "yes", diamond: "addon", studentFirst: "no" },
+        { feature: t.comparison.prospectTracking, apollo: "yes", diamond: "partial", studentFirst: "partial" },
+        { feature: t.comparison.leadSourceAnalytics, apollo: "yes", diamond: "partial", studentFirst: "no" },
       ],
     },
     {
       category: t.comparison.catCompliance,
       rows: [
-        { feature: t.comparison.ipedsReporting, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.fisap, apollo: "yes", diamond: "partial" },
-        { feature: t.comparison.calc9010, apollo: "yes", diamond: "partial" },
-        { feature: t.comparison.tax1098T, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.ncsara, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.auditTrail, apollo: "yes", diamond: "partial" },
+        { feature: t.comparison.ipedsReporting, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.fisap, apollo: "yes", diamond: "partial", studentFirst: "partial" },
+        { feature: t.comparison.calc9010, apollo: "yes", diamond: "partial", studentFirst: "no" },
+        { feature: t.comparison.tax1098T, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.ncsara, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.auditTrail, apollo: "yes", diamond: "partial", studentFirst: "partial" },
       ],
     },
     {
       category: t.comparison.catFinance,
       rows: [
-        { feature: t.comparison.tuitionBilling, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.financialAidMgmt, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.paymentProcessing, apollo: "yes", apolloNote: t.comparison.noteStripe, diamond: "addon", diamondNote: t.comparison.noteDiamondPay },
-        { feature: t.comparison.studentLedger, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.isirImport, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.paymentPlans, apollo: "yes", diamond: "addon" },
+        { feature: t.comparison.tuitionBilling, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.financialAidMgmt, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.paymentProcessing, apollo: "yes", apolloNote: t.comparison.noteStripe, diamond: "addon", diamondNote: t.comparison.noteDiamondPay, studentFirst: "addon", studentFirstNote: t.comparison.notePaymentus },
+        { feature: t.comparison.studentLedger, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.isirImport, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.paymentPlans, apollo: "yes", diamond: "addon", studentFirst: "addon", studentFirstNote: t.comparison.noteTuitionOptions },
       ],
     },
     {
       category: t.comparison.catAI,
       rows: [
-        { feature: t.comparison.predictiveAnalytics, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.atRiskAlerts, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.retentionScoring, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.smartRecommendations, apollo: "yes", diamond: "no" },
+        { feature: t.comparison.predictiveAnalytics, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.atRiskAlerts, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.retentionScoring, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.smartRecommendations, apollo: "yes", diamond: "no", studentFirst: "no" },
       ],
     },
     {
       category: t.comparison.catPortals,
       rows: [
-        { feature: t.comparison.adminDashboard, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.studentPortal, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.parentPortal, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.teacherPortal, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.mobileAccess, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.mfaSso, apollo: "yes", diamond: "partial" },
+        { feature: t.comparison.adminDashboard, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.studentPortal, apollo: "yes", diamond: "yes", studentFirst: "yes" },
+        { feature: t.comparison.parentPortal, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.teacherPortal, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.mobileAccess, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteMobileFirst },
+        { feature: t.comparison.mfaSso, apollo: "yes", diamond: "partial", studentFirst: "partial", studentFirstNote: t.comparison.noteViaMicrosoft },
       ],
     },
     {
       category: t.comparison.catIntegrations,
       rows: [
-        { feature: t.comparison.lmsIntegration, apollo: "yes", apolloNote: t.comparison.noteCanvasMoodle, diamond: "addon", diamondNote: t.comparison.noteDiamondLMS },
-        { feature: t.comparison.openAPI, apollo: "yes", diamond: "yes" },
-        { feature: t.comparison.zapierWebhooks, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.googleClassroom, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.accountingSoftware, apollo: "yes", diamond: "yes" },
+        { feature: t.comparison.lmsIntegration, apollo: "yes", apolloNote: t.comparison.noteCanvasMoodle, diamond: "addon", diamondNote: t.comparison.noteDiamondLMS, studentFirst: "no" },
+        { feature: t.comparison.openAPI, apollo: "yes", diamond: "yes", studentFirst: "partial" },
+        { feature: t.comparison.zapierWebhooks, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.googleClassroom, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.accountingSoftware, apollo: "yes", diamond: "yes", studentFirst: "yes", studentFirstNote: t.comparison.noteBlackbaud },
       ],
     },
     {
       category: t.comparison.catExperience,
       rows: [
-        { feature: t.comparison.modernUI, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLegacyUI },
-        { feature: t.comparison.bilingualSupport, apollo: "yes", apolloNote: t.comparison.noteEnEs, diamond: "no" },
-        { feature: t.comparison.dataMigration, apollo: "yes", apolloNote: t.comparison.note2Days, diamond: "partial", diamondNote: t.comparison.noteWeeks },
-        { feature: t.comparison.aiPowered, apollo: "yes", diamond: "no" },
-        { feature: t.comparison.customWorkflows, apollo: "yes", diamond: "partial" },
-        { feature: t.comparison.placementServices, apollo: "yes", diamond: "yes", diamondNote: t.comparison.noteJobWise },
+        { feature: t.comparison.modernUI, apollo: "yes", diamond: "partial", diamondNote: t.comparison.noteLegacyUI, studentFirst: "yes", studentFirstNote: t.comparison.noteCloudNative },
+        { feature: t.comparison.bilingualSupport, apollo: "yes", apolloNote: t.comparison.noteEnEs, diamond: "no", studentFirst: "partial", studentFirstNote: t.comparison.noteMultiLang },
+        { feature: t.comparison.dataMigration, apollo: "yes", apolloNote: t.comparison.note2Days, diamond: "partial", diamondNote: t.comparison.noteWeeks, studentFirst: "yes", studentFirstNote: t.comparison.noteMonths },
+        { feature: t.comparison.aiPowered, apollo: "yes", diamond: "no", studentFirst: "no" },
+        { feature: t.comparison.customWorkflows, apollo: "yes", diamond: "partial", studentFirst: "yes" },
+        { feature: t.comparison.placementServices, apollo: "yes", diamond: "yes", diamondNote: t.comparison.noteJobWise, studentFirst: "yes" },
       ],
     },
   ];
@@ -152,7 +154,7 @@ export default function ComparisonMatrix() {
       <div className="pointer-events-none absolute left-0 top-1/4 h-[400px] w-[400px] rounded-full bg-apollo-500/5 blur-[150px]" />
       <div className="pointer-events-none absolute right-0 bottom-1/4 h-[400px] w-[400px] rounded-full bg-emerald-500/5 blur-[150px]" />
 
-      <div className="relative mx-auto max-w-6xl px-6">
+      <div className="relative mx-auto max-w-7xl px-6">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -178,10 +180,10 @@ export default function ComparisonMatrix() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]"
+          className="mt-16 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.02]"
         >
           {/* Table header */}
-          <div className="grid grid-cols-[1fr_120px_120px] items-center border-b border-white/10 bg-white/[0.03] px-6 py-4 sm:grid-cols-[1fr_160px_160px]">
+          <div className="grid min-w-[640px] grid-cols-[1fr_120px_120px_120px] items-center border-b border-white/10 bg-white/[0.03] px-6 py-4 sm:grid-cols-[1fr_150px_150px_150px]">
             <span className="text-sm font-medium text-gray-400">
               {t.comparison.featureLabel}
             </span>
@@ -191,13 +193,16 @@ export default function ComparisonMatrix() {
             <span className="text-center text-sm font-medium text-gray-400">
               Diamond SIS
             </span>
+            <span className="text-center text-sm font-medium text-gray-400">
+              StudentFirst
+            </span>
           </div>
 
           {/* Categories */}
           {categories.map((cat) => (
             <div key={cat.category}>
               {/* Category header */}
-              <div className="border-b border-white/5 bg-white/[0.04] px-6 py-3">
+              <div className="min-w-[640px] border-b border-white/5 bg-white/[0.04] px-6 py-3">
                 <span className="text-sm font-semibold uppercase tracking-wider text-apollo-300/80">
                   {cat.category}
                 </span>
@@ -207,7 +212,7 @@ export default function ComparisonMatrix() {
               {cat.rows.map((row, idx) => (
                 <div
                   key={row.feature}
-                  className={`grid grid-cols-[1fr_120px_120px] items-center px-6 py-3 sm:grid-cols-[1fr_160px_160px] ${
+                  className={`grid min-w-[640px] grid-cols-[1fr_120px_120px_120px] items-center px-6 py-3 sm:grid-cols-[1fr_150px_150px_150px] ${
                     idx < cat.rows.length - 1
                       ? "border-b border-white/[0.03]"
                       : "border-b border-white/5"
@@ -220,13 +225,16 @@ export default function ComparisonMatrix() {
                   <span className="flex justify-center">
                     <StatusIcon status={row.diamond} note={row.diamondNote} />
                   </span>
+                  <span className="flex justify-center">
+                    <StatusIcon status={row.studentFirst} note={row.studentFirstNote} />
+                  </span>
                 </div>
               ))}
             </div>
           ))}
 
           {/* Legend */}
-          <div className="flex flex-wrap items-center gap-6 border-t border-white/10 bg-white/[0.03] px-6 py-4">
+          <div className="flex min-w-[640px] flex-wrap items-center gap-6 border-t border-white/10 bg-white/[0.03] px-6 py-4">
             <span className="inline-flex items-center gap-1.5 text-xs text-gray-500">
               <Check className="h-4 w-4 text-emerald-400" />{" "}
               {t.comparison.legendIncluded}
