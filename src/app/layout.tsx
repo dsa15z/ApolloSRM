@@ -26,7 +26,7 @@ export const metadata: Metadata = {
       "An integrated SIS + CRM platform for colleges and career schools, featuring AI-powered analytics and workflow automation.",
     url: "https://www.apollosrm.com",
     siteName: "ApolloSRM",
-    images: [{ url: "/og-image.svg", width: 1200, height: 630, alt: "ApolloSRM" }],
+    images: [{ url: "/og-image.png", width: 1456, height: 816, alt: "ApolloSRM" }],
     type: "website",
   },
   twitter: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "ApolloSRM — The Future of Student Relationships",
     description:
       "An integrated SIS + CRM platform for colleges and career schools, featuring AI-powered analytics and workflow automation.",
-    images: ["/og-image.svg"],
+    images: ["/og-image.png"],
   },
 };
 
