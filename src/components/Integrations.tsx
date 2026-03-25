@@ -26,6 +26,7 @@ const integrations: Integration[] = [
 
   // CRM / Lead Gen
   { name: "ActiveCampaign", logo: "/logos/activecampaign.svg", category: "CRM / Lead Gen" },
+  { name: "Element451", logo: "/logos/element451.svg", category: "CRM / Lead Gen", featured: true },
   { name: "HubSpot", logo: "/logos/hubspot.svg", category: "CRM / Lead Gen", featured: true },
   { name: "LeadSquared", logo: "/logos/leadsquared.svg", category: "CRM / Lead Gen", featured: true },
   { name: "Pipedrive", logo: "/logos/pipedrive.svg", category: "CRM / Lead Gen" },
@@ -106,6 +107,7 @@ const integrations: Integration[] = [
   { name: "Campus Ivy", logo: "/logos/campus-ivy.svg", category: "Financial Aid", featured: true },
   { name: "DJA", logo: "/logos/dja.svg", category: "Financial Aid", featured: true },
   { name: "ECM", logo: "/logos/ecm.svg", category: "Financial Aid", featured: true },
+  { name: "EDExpress", logo: "/logos/edexpress.svg", category: "Financial Aid", featured: true },
   { name: "FAME", logo: "/logos/fame.svg", category: "Financial Aid" },
   { name: "Global FAS", logo: "/logos/global-fas.svg", category: "Financial Aid", featured: true },
 
