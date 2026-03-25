@@ -1,4 +1,4 @@
-import { Rocket } from "lucide-react";
+import { LogoFull } from "./Logo";
 
 const footerLinks = {
   Product: [
@@ -9,11 +9,11 @@ const footerLinks = {
   ],
   Company: [
     { label: "About", href: "#about" },
-    { label: "Blog", href: "#" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "#contact" },
   ],
   Legal: [
-    { label: "Privacy Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "#" },
   ],
 };
@@ -25,11 +25,8 @@ export default function Footer() {
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="#" className="flex items-center gap-2 text-xl font-bold">
-              <Rocket className="h-6 w-6 text-apollo-500" />
-              <span>
-                Apollo<span className="text-apollo-500">SRM</span>
-              </span>
+            <a href="/">
+              <LogoFull />
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-500">
               Smart. Simple. Seamless. The all-in-one SIS + CRM platform
