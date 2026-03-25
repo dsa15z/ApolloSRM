@@ -15,6 +15,7 @@ export default function Footer() {
     ],
     [t.footer.resources]: [
       { label: t.footer.linkBlog, href: "/blog" },
+      { label: t.footer.linkDownloads, href: "/downloads" },
       { label: t.footer.linkMigration, href: "/migration" },
       { label: t.footer.linkSecurity, href: "/security" },
       { label: t.footer.linkAbout, href: "/#about" },

@@ -26,37 +26,37 @@ const securityFeatures = [
     icon: Lock,
     title: "Encryption Everywhere",
     description:
-      "All data is encrypted in transit with TLS 1.3 and at rest with AES-256 encryption. Database backups are encrypted and stored in geographically redundant locations.",
+      "PII encrypted at rest with AES-256 (SSE-KMS) and in transit with TLS 1.2+. KMS key rotation and strict key policies enforced. Secrets stored in AWS Secrets Manager — never in code or images.",
   },
   {
     icon: KeyRound,
     title: "Authentication & Access Control",
     description:
-      "Multi-factor authentication (MFA) for all accounts. Role-based access control (RBAC) ensures users only see what they need. SSO integration via SAML 2.0 and OpenID Connect.",
+      "Federated SSO with MFA for admins — no long-lived access keys. Least-privilege IAM roles with application-level RBAC and full audit trails. Role-based permissions ensure users only see what they need.",
   },
   {
     icon: Eye,
     title: "Audit Logging",
     description:
-      "Comprehensive audit trails track every data access, modification, and administrative action. Logs are immutable and retained for 7 years to support compliance requirements.",
+      "Centralized logging with immutable S3 retention. 24x7 alerting with runbooks and on-call escalation. Comprehensive audit trails track every data access, modification, and admin action.",
   },
   {
     icon: Server,
-    title: "Infrastructure Security",
+    title: "Cloud-Native Infrastructure",
     description:
-      "Hosted on SOC 2 Type II certified cloud infrastructure with automated patching, intrusion detection, DDoS protection, and 24/7 monitoring.",
+      "Multi-tenant SIS on AWS with prod/stage/dev isolated by account and VPC. Private subnets for app and data tiers with least-privilege Security Groups and NACLs. S3 Block Public Access enforced.",
   },
   {
     icon: RefreshCw,
     title: "Business Continuity",
     description:
-      "99.9% uptime SLA. Automated daily backups with point-in-time recovery. Disaster recovery plan with RTO < 4 hours and RPO < 1 hour.",
+      "Daily encrypted snapshots with RDS point-in-time recovery and Multi-AZ. Targets: RTO ≤ 4 hours, RPO ≤ 15 minutes. 30–90 day retention with vault lock.",
   },
   {
     icon: Globe,
-    title: "Network Security",
+    title: "Network & Application Security",
     description:
-      "Web Application Firewall (WAF), rate limiting, and IP allowlisting. All API endpoints are authenticated and rate-limited. Regular penetration testing by third-party firms.",
+      "ALB/CloudFront at the edge with AWS WAF and Shield. HSTS enforced on all endpoints. Secure SDLC with code review, SAST/DAST, dependency and image scanning. OWASP Top 10 controls throughout.",
   },
 ];
 
@@ -81,9 +81,9 @@ const complianceItems = [
   },
   {
     icon: Shield,
-    title: "GLBA Safeguards",
+    title: "GDPR / CCPA / GLBA",
     description:
-      "For institutions handling financial aid data, ApolloSRM implements controls aligned with the Gramm-Leach-Bliley Act safeguards rule to protect student financial information.",
+      "Privacy compliance via DPA/SCCs for GDPR and CCPA. Subprocessors disclosed. Payment cards handled only by PCI processor. GLBA-aligned safeguards for student financial information.",
   },
 ];
 
@@ -163,10 +163,10 @@ export default function SecurityPage() {
             <h2 className="text-2xl font-bold">Our Data Commitments</h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { label: "Data Ownership", value: "Your data is yours — always. We never sell, share, or use student data for advertising." },
-                { label: "Data Portability", value: "Export all your data at any time in standard formats. No vendor lock-in." },
-                { label: "Breach Response", value: "72-hour breach notification. Dedicated incident response team with documented runbooks." },
-                { label: "Data Deletion", value: "Full data purge upon contract termination. Certified deletion within 30 days." },
+                { label: "Data Freedom Guarantee", value: "Your data is yours. Period. Export any time in clean formats. No ransom-by-process, no special fees, no hostage situations disguised as software." },
+                { label: "No Lockouts. Ever.", value: "We don't punish customers for asking hard questions. We don't slow-walk exports. If ApolloSRM isn't the right fit, we help you transition like adults." },
+                { label: "Incident Response", value: "Triage → containment → eradication → recovery → post-mortem. Customer notification without undue delay, within 72 hours if reportable." },
+                { label: "Privacy & Compliance", value: "FERPA-ready, SOC 2-aligned. GDPR/CCPA via DPA/SCCs. Data minimization with tenant-level deletion on request or termination." },
               ].map((item) => (
                 <div key={item.label}>
                   <h3 className="font-semibold text-apollo-400">
