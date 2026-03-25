@@ -4,16 +4,21 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const integrations = [
-  { name: "QuickBooks", logo: "/logos/quickbooks.svg" },
-  { name: "Google Workspace", logo: "/logos/google-workspace.svg" },
-  { name: "Microsoft 365", logo: "/logos/microsoft-365.svg" },
-  { name: "Zoom", logo: "/logos/zoom.svg" },
   { name: "Canvas LMS", logo: "/logos/canvas.svg" },
+  { name: "DJA", logo: "/logos/dja.svg" },
+  { name: "Gmail", logo: "/logos/gmail.svg" },
+  { name: "Google Classroom", logo: "/logos/google-classroom.svg" },
+  { name: "Google Workspace", logo: "/logos/google-workspace.svg" },
+  { name: "LeadSquared", logo: "/logos/leadsquared.svg" },
+  { name: "Microsoft 365", logo: "/logos/microsoft-365.svg" },
   { name: "Moodle", logo: "/logos/moodle.svg" },
-  { name: "Stripe", logo: "/logos/stripe.svg" },
+  { name: "QuickBooks", logo: "/logos/quickbooks.svg" },
   { name: "Salesforce", logo: "/logos/salesforce.svg" },
   { name: "Slack", logo: "/logos/slack.svg" },
+  { name: "Stripe", logo: "/logos/stripe.svg" },
   { name: "Twilio", logo: "/logos/twilio.svg" },
+  { name: "Zapier", logo: "/logos/zapier.svg" },
+  { name: "Zoom", logo: "/logos/zoom.svg" },
 ];
 
 export default function Integrations() {
