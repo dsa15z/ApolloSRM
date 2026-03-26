@@ -224,11 +224,15 @@ export async function POST(request: NextRequest) {
 
     // Create/update HubSpot contact + note, store link, then send email
     // Must await — Vercel kills serverless functions after response is sent
+    const errors: string[] = [];
+
     let hubspotContactId: string | undefined;
     try {
       hubspotContactId = await createHubSpotContact(trimmedData);
     } catch (err) {
-      console.error("Failed to sync contact to HubSpot:", err);
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("Failed to sync contact to HubSpot:", msg);
+      errors.push(`hubspot: ${msg}`);
     }
 
     // Store HubSpot link in database
@@ -241,18 +245,22 @@ export async function POST(request: NextRequest) {
           data: { hubspotLink: link },
         });
       } catch (err) {
-        console.error("Failed to store HubSpot link:", err);
+        const msg = err instanceof Error ? err.message : String(err);
+        console.error("Failed to store HubSpot link:", msg);
+        errors.push(`hubspot-link: ${msg}`);
       }
     }
 
     try {
       await sendNotificationEmail(trimmedData, hubspotContactId);
     } catch (err) {
-      console.error("Failed to send notification email:", err);
+      const msg = err instanceof Error ? err.message : String(err);
+      console.error("Failed to send notification email:", msg);
+      errors.push(`email: ${msg}`);
     }
 
     return NextResponse.json(
-      { success: true, id: submission.id },
+      { success: true, id: submission.id, hubspotId: hubspotContactId || null, errors: errors.length > 0 ? errors : undefined },
       { status: 201 }
     );
   } catch (error) {
