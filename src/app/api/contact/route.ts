@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import nodemailer from "nodemailer";
 
 interface ContactData {
   firstName: string;
@@ -113,77 +112,69 @@ async function createHubSpotContact(data: ContactData) {
 }
 
 async function sendNotificationEmail(data: ContactData) {
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-    console.log("SMTP not configured — skipping email notification");
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) {
+    console.log("RESEND_API_KEY not configured — skipping email notification");
     return;
   }
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: process.env.SMTP_SECURE === "true",
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+  const fromAddress = process.env.EMAIL_FROM || "ApolloSRM <onboarding@resend.dev>";
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendKey}`,
+      "Content-Type": "application/json",
     },
-  });
-
-  const fromAddress = process.env.SMTP_FROM || process.env.SMTP_USER;
-
-  await transporter.sendMail({
-    from: `"ApolloSRM Website" <${fromAddress}>`,
-    to: "sales@apollosrm.com",
-    replyTo: data.email,
-    subject: `New Contact Form Submission — ${data.firstName} ${data.lastName}`,
-    text: [
-      `New contact form submission from the ApolloSRM website:`,
-      ``,
-      `Name: ${data.firstName} ${data.lastName}`,
-      `Email: ${data.email}`,
-      `Phone: ${data.phone || "Not provided"}`,
-      `Institution: ${data.institution || "Not provided"}`,
-      ``,
-      `Message:`,
-      data.message,
-      ``,
-      `---`,
-      `This email was sent automatically from apollosrm.com`,
-    ].join("\n"),
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <div style="background: #031225; padding: 24px; border-radius: 12px 12px 0 0;">
-          <h2 style="color: #2794EB; margin: 0;">New Contact Form Submission</h2>
-        </div>
-        <div style="background: #f9fafb; padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-              <td style="padding: 8px 0; color: #6b7280; font-size: 14px; width: 120px;">Name:</td>
-              <td style="padding: 8px 0; font-size: 14px; font-weight: 600;">${data.firstName} ${data.lastName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Email:</td>
-              <td style="padding: 8px 0; font-size: 14px;"><a href="mailto:${data.email}" style="color: #2794EB;">${data.email}</a></td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Phone:</td>
-              <td style="padding: 8px 0; font-size: 14px;">${data.phone ? `<a href="tel:${data.phone}" style="color: #2794EB;">${data.phone}</a>` : "Not provided"}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Institution:</td>
-              <td style="padding: 8px 0; font-size: 14px;">${data.institution || "Not provided"}</td>
-            </tr>
-          </table>
-          <div style="margin-top: 16px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
-            <p style="color: #6b7280; font-size: 12px; margin: 0 0 8px;">Message:</p>
-            <p style="margin: 0; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
+    body: JSON.stringify({
+      from: fromAddress,
+      to: "sales@apollosrm.com",
+      reply_to: data.email,
+      subject: `New Contact Form Submission — ${data.firstName} ${data.lastName}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #031225; padding: 24px; border-radius: 12px 12px 0 0;">
+            <h2 style="color: #2794EB; margin: 0;">New Contact Form Submission</h2>
           </div>
-          <p style="margin-top: 16px; font-size: 12px; color: #9ca3af;">
-            Reply directly to this email to respond to ${data.firstName}.
-          </p>
+          <div style="background: #f9fafb; padding: 24px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 12px 12px;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="padding: 8px 0; color: #6b7280; font-size: 14px; width: 120px;">Name:</td>
+                <td style="padding: 8px 0; font-size: 14px; font-weight: 600;">${data.firstName} ${data.lastName}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Email:</td>
+                <td style="padding: 8px 0; font-size: 14px;"><a href="mailto:${data.email}" style="color: #2794EB;">${data.email}</a></td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Phone:</td>
+                <td style="padding: 8px 0; font-size: 14px;">${data.phone ? `<a href="tel:${data.phone}" style="color: #2794EB;">${data.phone}</a>` : "Not provided"}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Institution:</td>
+                <td style="padding: 8px 0; font-size: 14px;">${data.institution || "Not provided"}</td>
+              </tr>
+            </table>
+            <div style="margin-top: 16px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e5e7eb;">
+              <p style="color: #6b7280; font-size: 12px; margin: 0 0 8px;">Message:</p>
+              <p style="margin: 0; font-size: 14px; line-height: 1.6; white-space: pre-wrap;">${data.message}</p>
+            </div>
+            <p style="margin-top: 16px; font-size: 12px; color: #9ca3af;">
+              Reply directly to this email to respond to ${data.firstName}.
+            </p>
+          </div>
         </div>
-      </div>
-    `,
+      `,
+    }),
   });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend API error (${response.status}): ${errorText}`);
+  }
+
+  const result = await response.json();
+  console.log("Email sent via Resend:", result.id);
 }
 
 export async function POST(request: NextRequest) {
