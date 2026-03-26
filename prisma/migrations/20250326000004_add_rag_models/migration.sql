@@ -36,8 +36,8 @@ CREATE TABLE "Chunk" (
 -- Add vector column for embeddings (1536 dimensions for text-embedding-3-small)
 ALTER TABLE "Chunk" ADD COLUMN "embedding" vector(1536);
 
--- CreateIndex for vector similarity search
-CREATE INDEX "Chunk_embedding_idx" ON "Chunk" USING ivfflat ("embedding" vector_cosine_ops) WITH (lists = 100);
+-- CreateIndex for vector similarity search (hnsw works with any number of rows)
+CREATE INDEX IF NOT EXISTS "Chunk_embedding_idx" ON "Chunk" USING hnsw ("embedding" vector_cosine_ops);
 
 -- CreateIndex for document lookup
 CREATE INDEX "Chunk_documentId_idx" ON "Chunk"("documentId");
