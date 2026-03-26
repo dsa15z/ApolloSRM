@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Analytics from "@/components/Analytics";
 import { I18nProvider } from "@/lib/i18n/context";
+import { AuthProvider } from "@/components/AuthProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -58,9 +59,11 @@ export default function RootLayout({
         <a href="#main" className="skip-to-content">
           Skip to content
         </a>
-        <I18nProvider>
-          {children}
-        </I18nProvider>
+        <AuthProvider>
+          <I18nProvider>
+            {children}
+          </I18nProvider>
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

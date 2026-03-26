@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, LogIn, User } from "lucide-react";
 import { LogoFull } from "./Logo";
 import { useI18n } from "@/lib/i18n/context";
+import { useAuth } from "./AuthProvider";
 import type { Locale } from "@/lib/i18n";
 
 const navLinks = [
@@ -23,6 +24,7 @@ const localeLabels: Record<Locale, string> = {
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const { locale, setLocale, t } = useI18n();
+  const { user, loading: authLoading } = useAuth();
 
   const toggleLocale = () => {
     setLocale(locale === "en" ? "es" : "en");
@@ -61,6 +63,27 @@ export default function Navbar() {
             <Globe className="h-4 w-4" />
             {localeLabels[locale]}
           </button>
+
+          {/* Auth button */}
+          {!authLoading && (
+            user ? (
+              <a
+                href={user.role === "ADMIN" ? "/admin" : "/dashboard"}
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-300 transition hover:text-white"
+              >
+                <User className="h-4 w-4" />
+                {user.name || user.email.split("@")[0]}
+              </a>
+            ) : (
+              <a
+                href="/login"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-300 transition hover:text-white"
+              >
+                <LogIn className="h-4 w-4" />
+                Login
+              </a>
+            )
+          )}
 
           <a
             href="/#contact"
@@ -110,6 +133,29 @@ export default function Navbar() {
                 <Globe className="h-4 w-4" />
                 {locale === "en" ? "Español" : "English"}
               </button>
+
+              {/* Mobile auth button */}
+              {!authLoading && (
+                user ? (
+                  <a
+                    href={user.role === "ADMIN" ? "/admin" : "/dashboard"}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-1.5 text-base font-medium text-gray-300 transition hover:text-white"
+                  >
+                    <User className="h-4 w-4" />
+                    {user.name || user.email.split("@")[0]}
+                  </a>
+                ) : (
+                  <a
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-1.5 text-base font-medium text-gray-300 transition hover:text-white"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    Login
+                  </a>
+                )
+              )}
 
               <a
                 href="/#contact"
