@@ -25,6 +25,7 @@ export interface SearchResult {
   similarity: number;
   documentTitle?: string;
   documentSource?: string;
+  sourceId?: string;
 }
 
 export async function searchSimilarChunks(
@@ -38,7 +39,8 @@ export async function searchSimilarChunks(
     `SELECT c."id", c."content", c."documentId", c."metadata",
             1 - (c."embedding" <=> $1::vector) AS similarity,
             d."title" AS "documentTitle",
-            d."source" AS "documentSource"
+            d."source" AS "documentSource",
+            d."sourceId" AS "sourceId"
      FROM "Chunk" c
      JOIN "Document" d ON c."documentId" = d."id"
      WHERE d."status" = 'ready'

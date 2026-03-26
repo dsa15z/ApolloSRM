@@ -107,11 +107,69 @@ export default function ChatWidget() {
     }
   };
 
-  const processContent = (content: string) => {
-    return content
+  interface SourceRef {
+    index: number;
+    title: string;
+    url: string;
+    source: string;
+  }
+
+  const parseContent = (content: string): { text: string; sources: SourceRef[] } => {
+    let sources: SourceRef[] = [];
+    let text = content;
+
+    // Extract sources JSON
+    const sourcesMatch = text.match(/\[SOURCES\]([\s\S]*?)\[\/SOURCES\]/);
+    if (sourcesMatch) {
+      try {
+        sources = JSON.parse(sourcesMatch[1]);
+      } catch {}
+      text = text.replace(/\n*\[SOURCES\][\s\S]*?\[\/SOURCES\]/, "");
+    }
+
+    // Clean markers
+    text = text
       .replace(/\[CONTACT_REQUEST\]/g, "")
       .replace(/\[CONTACT_DATA\][\s\S]*?\[\/CONTACT_DATA\]/g, "")
+      // Replace [Source N](#) markdown-style refs with just [N]
+      .replace(/\[Source\s*(\d+)\]\(#\)/g, "[$1]")
       .trim();
+
+    return { text, sources };
+  };
+
+  const renderTextWithRefs = (text: string, sources: SourceRef[]) => {
+    if (sources.length === 0) return <p className="whitespace-pre-wrap">{text}</p>;
+
+    // Split text by reference markers like [1], [2], etc.
+    const parts = text.split(/(\[\d+\])/g);
+    return (
+      <p className="whitespace-pre-wrap">
+        {parts.map((part, i) => {
+          const refMatch = part.match(/^\[(\d+)\]$/);
+          if (refMatch) {
+            const idx = parseInt(refMatch[1]);
+            const src = sources.find((s) => s.index === idx);
+            if (src) {
+              return (
+                <a
+                  key={i}
+                  href={src.url}
+                  target={src.source === "website" ? "_self" : "_blank"}
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded bg-apollo-500/20 px-1 py-0.5 text-[10px] font-medium text-apollo-400 hover:bg-apollo-500/30 transition mx-0.5"
+                  title={src.title}
+                  onClick={() => { if (src.source === "website") setIsOpen(false); }}
+                >
+                  {idx}
+                </a>
+              );
+            }
+          }
+          return <span key={i}>{part}</span>;
+        })}
+      </p>
+    );
   };
 
   return (
@@ -179,22 +237,46 @@ export default function ChatWidget() {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                >
+              {messages.map((msg) => {
+                const { text, sources } = parseContent(msg.content);
+                return (
                   <div
-                    className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                      msg.role === "user"
-                        ? "bg-apollo-500 text-white rounded-br-md"
-                        : "bg-white/5 text-gray-200 rounded-bl-md"
-                    }`}
+                    key={msg.id}
+                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    <p className="whitespace-pre-wrap">{processContent(msg.content)}</p>
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                        msg.role === "user"
+                          ? "bg-apollo-500 text-white rounded-br-md"
+                          : "bg-white/5 text-gray-200 rounded-bl-md"
+                      }`}
+                    >
+                      {msg.role === "assistant" && sources.length > 0
+                        ? renderTextWithRefs(text, sources)
+                        : <p className="whitespace-pre-wrap">{text}</p>
+                      }
+                      {msg.role === "assistant" && sources.length > 0 && (
+                        <div className="mt-2 flex flex-wrap gap-1 border-t border-white/5 pt-2">
+                          {sources.map((src) => (
+                            <a
+                              key={src.index}
+                              href={src.url}
+                              target={src.source === "website" ? "_self" : "_blank"}
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 rounded-full bg-white/5 px-2 py-0.5 text-[9px] text-gray-500 hover:text-apollo-400 hover:bg-apollo-500/10 transition"
+                              title={src.title}
+                              onClick={() => { if (src.source === "website") setIsOpen(false); }}
+                            >
+                              <span className="font-bold">{src.index}</span>
+                              <span className="max-w-[100px] truncate">{src.title}</span>
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
 
               {isLoading && messages[messages.length - 1]?.role === "user" && (
                 <div className="flex justify-start">

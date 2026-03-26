@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getEmbedding } from "@/lib/rag/embeddings";
 import { searchSimilarChunks } from "@/lib/rag/vectorStore";
-import { buildSystemPrompt } from "@/lib/rag/prompts";
+import { buildSystemPrompt, SourceReference } from "@/lib/rag/prompts";
 
 export const maxDuration = 30;
 
@@ -47,34 +47,35 @@ export async function POST(request: NextRequest) {
     }
 
     // RAG: embed query and search for relevant chunks
-    let contextChunks: { content: string; documentTitle?: string }[] = [];
+    let contextChunks: { content: string; documentTitle?: string; documentSource?: string; sourceId?: string }[] = [];
     try {
       const queryEmbedding = await getEmbedding(lastUserMessage.content);
       const results = await searchSimilarChunks(queryEmbedding, 5);
       contextChunks = results.map((r) => ({
         content: r.content,
         documentTitle: r.documentTitle || undefined,
+        documentSource: r.documentSource || undefined,
+        sourceId: r.sourceId || undefined,
       }));
     } catch (err) {
       console.error("RAG search failed, continuing without context:", err);
     }
 
-    const systemPrompt = buildSystemPrompt(contextChunks);
+    const { prompt: systemPrompt, sources } = buildSystemPrompt(contextChunks);
 
-    // Stream the response
+    // Stream the response, then append source metadata
     const result = streamText({
       model: openai("gpt-4o-mini"),
       system: systemPrompt,
-      messages: messages.slice(-10), // Last 10 messages for context
+      messages: messages.slice(-10),
       onFinish: async ({ text }) => {
-        // Save assistant message
         if (session) {
           await prisma.chatMessage.create({
             data: {
               sessionId: session.id,
               role: "assistant",
               content: text,
-              sources: JSON.stringify(contextChunks.map((c) => c.documentTitle)),
+              sources: JSON.stringify(sources),
             },
           });
           await prisma.chatSession.update({
@@ -85,7 +86,26 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return result.toTextStreamResponse();
+    // Custom stream that appends source metadata after the text
+    const textStream = result.textStream;
+    const encoder = new TextEncoder();
+
+    const readable = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of textStream) {
+          controller.enqueue(encoder.encode(chunk));
+        }
+        // Append source references as a special delimiter + JSON
+        if (sources.length > 0) {
+          controller.enqueue(encoder.encode(`\n\n[SOURCES]${JSON.stringify(sources)}[/SOURCES]`));
+        }
+        controller.close();
+      },
+    });
+
+    return new Response(readable, {
+      headers: { "Content-Type": "text/plain; charset=utf-8" },
+    });
   } catch (error) {
     console.error("Chat error:", error);
     return new Response("Chat error", { status: 500 });
