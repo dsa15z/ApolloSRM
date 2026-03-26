@@ -31,5 +31,58 @@ model ContactSubmission {
   institution   String
   message       String
   hubspotLink   String   @default("")
+  source        String   @default("form")
   createdAt     DateTime @default(now())
+}
+
+model Document {
+  id          String   @id @default(cuid())
+  title       String
+  fileName    String
+  fileType    String
+  source      String   @default("upload")
+  sourceId    String?
+  status      String   @default("pending")
+  error       String?
+  chunkCount  Int      @default(0)
+  uploadedBy  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  chunks      Chunk[]
+}
+
+model Chunk {
+  id          String   @id @default(cuid())
+  documentId  String
+  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content     String
+  chunkIndex  Int
+  tokenCount  Int      @default(0)
+  metadata    String   @default("{}")
+  createdAt   DateTime @default(now())
+
+  @@index([documentId])
+}
+
+model ChatSession {
+  id           String        @id @default(cuid())
+  sessionToken String        @unique
+  userId       String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  messages     ChatMessage[]
+
+  @@index([sessionToken])
+}
+
+model ChatMessage {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  role      String
+  content   String
+  sources   String      @default("[]")
+  createdAt DateTime    @default(now())
+
+  @@index([sessionId])
 }

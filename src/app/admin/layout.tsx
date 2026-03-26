@@ -23,6 +23,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             Contact Submissions
           </Link>
           <Link
+            href="/admin/documents"
+            className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-300 transition hover:bg-white/5 hover:text-white"
+          >
+            Knowledge Base
+          </Link>
+          <Link
             href="/"
             className="mt-8 block rounded-lg px-3 py-2 text-sm font-medium text-gray-500 transition hover:bg-white/5 hover:text-gray-300"
           >

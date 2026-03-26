@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Analytics from "@/components/Analytics";
+import ChatWidget from "@/components/ChatWidget";
 import { I18nProvider } from "@/lib/i18n/context";
 import { AuthProvider } from "@/components/AuthProvider";
 import "./globals.css";
@@ -64,6 +65,7 @@ export default function RootLayout({
             {children}
           </I18nProvider>
         </AuthProvider>
+        <ChatWidget />
         <Analytics />
       </body>
     </html>
