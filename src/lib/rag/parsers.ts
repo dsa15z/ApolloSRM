@@ -1,7 +1,7 @@
 export async function parsePDF(buffer: Buffer): Promise<string> {
-  // pdf-parse v1 — CommonJS, serverless-compatible
+  // Require the internal lib directly to avoid pdf-parse's test file loading
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const pdfParse = require("pdf-parse");
+  const pdfParse = require("pdf-parse/lib/pdf-parse.js");
   const data = await pdfParse(buffer);
   return data.text;
 }
