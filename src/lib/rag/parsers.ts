@@ -1,9 +1,9 @@
-import { PDFParse } from "pdf-parse";
-
 export async function parsePDF(buffer: Buffer): Promise<string> {
-  const parser = new PDFParse({ data: new Uint8Array(buffer) });
-  const result = await parser.getText();
-  return result.text;
+  // pdf-parse v1 — CommonJS, serverless-compatible
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const pdfParse = require("pdf-parse");
+  const data = await pdfParse(buffer);
+  return data.text;
 }
 
 export async function parseDOCX(buffer: Buffer): Promise<string> {
