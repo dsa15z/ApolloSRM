@@ -2,89 +2,117 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import nodemailer from "nodemailer";
 
-async function createHubSpotContact(data: {
+interface ContactData {
   firstName: string;
   lastName: string;
   email: string;
+  phone: string;
   institution: string;
   message: string;
-}) {
+}
+
+async function createHubSpotContact(data: ContactData) {
   const apiKey = process.env.HUBSPOT_API_KEY;
   if (!apiKey) {
     console.log("HUBSPOT_API_KEY not configured — skipping HubSpot sync");
     return;
   }
 
-  // First try to create the contact
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${apiKey}`,
+  };
+
+  // Create the contact
   const response = await fetch("https://api.hubapi.com/crm/v3/objects/contacts", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
+    headers,
     body: JSON.stringify({
       properties: {
         firstname: data.firstName,
         lastname: data.lastName,
         email: data.email,
+        phone: data.phone || undefined,
         company: data.institution || undefined,
         hs_lead_status: "NEW",
         lifecyclestage: "lead",
-        message: data.message,
       },
     }),
   });
 
+  let contactId: string | undefined;
+
   if (response.ok) {
     const result = await response.json();
-    console.log("HubSpot contact created:", result.id);
-    return result.id;
-  }
-
-  // If contact already exists (409 conflict), update instead
-  if (response.status === 409) {
+    contactId = result.id;
+    console.log("HubSpot contact created:", contactId);
+  } else if (response.status === 409) {
+    // Contact already exists — update instead
     const error = await response.json();
-    const existingId = error.message?.match(/Existing ID: (\d+)/)?.[1];
+    contactId = error.message?.match(/Existing ID: (\d+)/)?.[1];
 
-    if (existingId) {
+    if (contactId) {
       const updateResponse = await fetch(
-        `https://api.hubapi.com/crm/v3/objects/contacts/${existingId}`,
+        `https://api.hubapi.com/crm/v3/objects/contacts/${contactId}`,
         {
           method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
+          headers,
           body: JSON.stringify({
             properties: {
               firstname: data.firstName,
               lastname: data.lastName,
+              phone: data.phone || undefined,
               company: data.institution || undefined,
-              message: data.message,
             },
           }),
         }
       );
 
       if (updateResponse.ok) {
-        console.log("HubSpot contact updated:", existingId);
-        return existingId;
+        console.log("HubSpot contact updated:", contactId);
       }
     }
+  } else {
+    const errorText = await response.text();
+    throw new Error(`HubSpot contact API error (${response.status}): ${errorText}`);
   }
 
-  const errorText = await response.text();
-  throw new Error(`HubSpot API error (${response.status}): ${errorText}`);
+  // Create a note with the message, associated to the contact
+  if (contactId && data.message) {
+    const noteBody = `Website Contact Form Submission\n\nFrom: ${data.firstName} ${data.lastName}\nEmail: ${data.email}\nPhone: ${data.phone || "Not provided"}\nInstitution: ${data.institution || "Not provided"}\n\nMessage:\n${data.message}`;
+
+    const noteResponse = await fetch("https://api.hubapi.com/crm/v3/objects/notes", {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        properties: {
+          hs_timestamp: new Date().toISOString(),
+          hs_note_body: noteBody,
+        },
+        associations: [
+          {
+            to: { id: contactId },
+            types: [
+              {
+                associationCategory: "HUBSPOT_DEFINED",
+                associationTypeId: 202,
+              },
+            ],
+          },
+        ],
+      }),
+    });
+
+    if (noteResponse.ok) {
+      console.log("HubSpot note created for contact:", contactId);
+    } else {
+      const noteError = await noteResponse.text();
+      console.error("Failed to create HubSpot note:", noteError);
+    }
+  }
 }
 
-async function sendNotificationEmail(data: {
-  firstName: string;
-  lastName: string;
-  email: string;
-  institution: string;
-  message: string;
-}) {
-  // Only send if SMTP is configured
+async function sendNotificationEmail(data: ContactData) {
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
     console.log("SMTP not configured — skipping email notification");
     return;
@@ -112,6 +140,7 @@ async function sendNotificationEmail(data: {
       ``,
       `Name: ${data.firstName} ${data.lastName}`,
       `Email: ${data.email}`,
+      `Phone: ${data.phone || "Not provided"}`,
       `Institution: ${data.institution || "Not provided"}`,
       ``,
       `Message:`,
@@ -136,6 +165,10 @@ async function sendNotificationEmail(data: {
               <td style="padding: 8px 0; font-size: 14px;"><a href="mailto:${data.email}" style="color: #2794EB;">${data.email}</a></td>
             </tr>
             <tr>
+              <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Phone:</td>
+              <td style="padding: 8px 0; font-size: 14px;">${data.phone ? `<a href="tel:${data.phone}" style="color: #2794EB;">${data.phone}</a>` : "Not provided"}</td>
+            </tr>
+            <tr>
               <td style="padding: 8px 0; color: #6b7280; font-size: 14px;">Institution:</td>
               <td style="padding: 8px 0; font-size: 14px;">${data.institution || "Not provided"}</td>
             </tr>
@@ -156,7 +189,7 @@ async function sendNotificationEmail(data: {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email, institution, message } = body;
+    const { firstName, lastName, email, phone, institution, message } = body;
 
     // Validate required fields
     if (!firstName || !lastName || !email || !message) {
@@ -174,10 +207,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const trimmedData = {
+    const trimmedData: ContactData = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       email: email.trim().toLowerCase(),
+      phone: (phone || "").trim(),
       institution: (institution || "").trim(),
       message: message.trim(),
     };
@@ -187,12 +221,12 @@ export async function POST(request: NextRequest) {
       data: trimmedData,
     });
 
-    // Send email notification (non-blocking — don't fail the request if email fails)
+    // Send email notification (non-blocking)
     sendNotificationEmail(trimmedData).catch((err) => {
       console.error("Failed to send notification email:", err);
     });
 
-    // Create/update HubSpot contact as a new lead (non-blocking)
+    // Create/update HubSpot contact + note (non-blocking)
     createHubSpotContact(trimmedData).catch((err) => {
       console.error("Failed to sync contact to HubSpot:", err);
     });

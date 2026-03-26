@@ -12,6 +12,7 @@ model ContactSubmission {
   firstName   String
   lastName    String
   email       String
+  phone       String   @default("")
   institution String
   message     String
   createdAt   DateTime @default(now())

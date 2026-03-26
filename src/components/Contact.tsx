@@ -142,17 +142,31 @@ export default function Contact() {
                 />
               </div>
 
-              <div>
-                <label htmlFor="institution" className="mb-2 block text-sm font-medium text-gray-300">
-                  {t.contact.institution}
-                </label>
-                <input
-                  id="institution"
-                  name="institution"
-                  type="text"
-                  placeholder={t.contact.institutionPlaceholder}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
-                />
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="phone" className="mb-2 block text-sm font-medium text-gray-300">
+                    {t.contact.phone}
+                  </label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder={t.contact.phonePlaceholder}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="institution" className="mb-2 block text-sm font-medium text-gray-300">
+                    {t.contact.institution}
+                  </label>
+                  <input
+                    id="institution"
+                    name="institution"
+                    type="text"
+                    placeholder={t.contact.institutionPlaceholder}
+                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder-gray-500 outline-none transition focus:border-apollo-500/50 focus:ring-2 focus:ring-apollo-500/20"
+                  />
+                </div>
               </div>
 
               <div>
