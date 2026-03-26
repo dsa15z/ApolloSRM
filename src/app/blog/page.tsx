@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
 import { blogPosts } from "@/lib/blog-posts";
+import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -11,7 +12,32 @@ export const metadata: Metadata = {
     "Insights on student relationship management, AI in education, and higher education technology.",
 };
 
-export default function BlogPage() {
+export const dynamic = "force-dynamic";
+
+export default async function BlogPage() {
+  // Fetch dynamic blog posts from database
+  let dynamicPosts: { slug: string; title: string; excerpt: string; category: string; readTime: string; createdAt: Date }[] = [];
+  try {
+    dynamicPosts = await prisma.dynamicBlogPost.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      select: { slug: true, title: true, excerpt: true, category: true, readTime: true, createdAt: true },
+    });
+  } catch {}
+
+  // Combine static + dynamic posts
+  const allPosts = [
+    ...blogPosts.map((p) => ({ ...p, isDynamic: false })),
+    ...dynamicPosts.map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      excerpt: p.excerpt,
+      date: p.createdAt.toISOString().split("T")[0],
+      category: p.category,
+      readTime: p.readTime,
+      isDynamic: true,
+    })),
+  ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   return (
     <>
       <Navbar />
@@ -33,7 +59,7 @@ export default function BlogPage() {
 
           {/* Post grid */}
           <div className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogPosts.map((post) => (
+            {allPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}

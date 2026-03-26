@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Download, FileText, Play } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -16,8 +17,24 @@ interface DocItem {
 
 export default function DownloadsPage() {
   const { t } = useI18n();
+  const [dynamicDownloads, setDynamicDownloads] = useState<DocItem[]>([]);
 
-  const documents: DocItem[] = [
+  useEffect(() => {
+    fetch("/api/downloads")
+      .then((r) => r.ok ? r.json() : [])
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setDynamicDownloads(data.map((d: { title: string; description: string; fileUrl: string }) => ({
+            title: d.title,
+            description: d.description,
+            href: d.fileUrl,
+          })));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const staticDocuments: DocItem[] = [
     {
       title: t.downloads.introTitle,
       description: t.downloads.introDesc,
@@ -120,7 +137,7 @@ export default function DownloadsPage() {
                 {t.downloads.documents}
               </h2>
               <div className="grid gap-4 sm:grid-cols-2">
-                {documents.map((doc) => (
+                {[...staticDocuments, ...dynamicDownloads].map((doc) => (
                   <a
                     key={doc.href}
                     href={doc.href}

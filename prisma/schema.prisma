@@ -86,3 +86,31 @@ model ChatMessage {
 
   @@index([sessionId])
 }
+
+model DynamicBlogPost {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  title     String
+  excerpt   String
+  content   String
+  author    String   @default("ApolloSRM Team")
+  category  String   @default("Product Updates")
+  readTime  String   @default("5 min read")
+  documentId String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DynamicDownload {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  fileName    String
+  fileUrl     String
+  fileSize    Int      @default(0)
+  documentId  String?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

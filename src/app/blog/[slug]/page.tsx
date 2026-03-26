@@ -3,8 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 import { blogPosts } from "@/lib/blog-posts";
+import { prisma } from "@/lib/prisma";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -16,17 +19,41 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
-  if (!post) return {};
-  return {
-    title: `${post.title} — ApolloSRM Blog`,
-    description: post.excerpt,
-  };
+  const staticPost = blogPosts.find((p) => p.slug === slug);
+  if (staticPost) return { title: `${staticPost.title} — ApolloSRM Blog`, description: staticPost.excerpt };
+  try {
+    const dynamicPost = await prisma.dynamicBlogPost.findUnique({ where: { slug } });
+    if (dynamicPost) return { title: `${dynamicPost.title} — ApolloSRM Blog`, description: dynamicPost.excerpt };
+  } catch {}
+  return {};
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+
+  // Check static posts first, then dynamic
+  let post: { title: string; excerpt: string; content: string; author: string; date: string; category: string; readTime: string } | null = null;
+
+  const staticPost = blogPosts.find((p) => p.slug === slug);
+  if (staticPost) {
+    post = { ...staticPost };
+  } else {
+    try {
+      const dynamicPost = await prisma.dynamicBlogPost.findUnique({ where: { slug } });
+      if (dynamicPost && dynamicPost.published) {
+        post = {
+          title: dynamicPost.title,
+          excerpt: dynamicPost.excerpt,
+          content: dynamicPost.content,
+          author: dynamicPost.author,
+          date: dynamicPost.createdAt.toISOString().split("T")[0],
+          category: dynamicPost.category,
+          readTime: dynamicPost.readTime,
+        };
+      }
+    } catch {}
+  }
+
   if (!post) notFound();
 
   // Simple markdown-like rendering: split by ## headings and paragraphs
