@@ -222,36 +222,34 @@ export async function POST(request: NextRequest) {
       data: trimmedData,
     });
 
-    // Create/update HubSpot contact + note, store link, then send email with deep link
-    // Run in background so the form response isn't delayed
-    (async () => {
-      let hubspotContactId: string | undefined;
-      try {
-        hubspotContactId = await createHubSpotContact(trimmedData);
-      } catch (err) {
-        console.error("Failed to sync contact to HubSpot:", err);
-      }
+    // Create/update HubSpot contact + note, store link, then send email
+    // Must await — Vercel kills serverless functions after response is sent
+    let hubspotContactId: string | undefined;
+    try {
+      hubspotContactId = await createHubSpotContact(trimmedData);
+    } catch (err) {
+      console.error("Failed to sync contact to HubSpot:", err);
+    }
 
-      // Store HubSpot link in database
-      if (hubspotContactId) {
-        const portalId = process.env.HUBSPOT_PORTAL_ID || "";
-        const link = `https://app.hubspot.com/contacts/${portalId}/record/0-1/${hubspotContactId}`;
-        try {
-          await prisma.contactSubmission.update({
-            where: { id: submission.id },
-            data: { hubspotLink: link },
-          });
-        } catch (err) {
-          console.error("Failed to store HubSpot link:", err);
-        }
-      }
-
+    // Store HubSpot link in database
+    if (hubspotContactId) {
+      const portalId = process.env.HUBSPOT_PORTAL_ID || "";
+      const link = `https://app.hubspot.com/contacts/${portalId}/record/0-1/${hubspotContactId}`;
       try {
-        await sendNotificationEmail(trimmedData, hubspotContactId);
+        await prisma.contactSubmission.update({
+          where: { id: submission.id },
+          data: { hubspotLink: link },
+        });
       } catch (err) {
-        console.error("Failed to send notification email:", err);
+        console.error("Failed to store HubSpot link:", err);
       }
-    })();
+    }
+
+    try {
+      await sendNotificationEmail(trimmedData, hubspotContactId);
+    } catch (err) {
+      console.error("Failed to send notification email:", err);
+    }
 
     return NextResponse.json(
       { success: true, id: submission.id },
