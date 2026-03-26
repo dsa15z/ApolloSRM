@@ -8,12 +8,13 @@ datasource db {
 }
 
 model ContactSubmission {
-  id          String   @id @default(cuid())
-  firstName   String
-  lastName    String
-  email       String
-  phone       String   @default("")
-  institution String
-  message     String
-  createdAt   DateTime @default(now())
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String   @default("")
+  institution   String
+  message       String
+  hubspotLink   String   @default("")
+  createdAt     DateTime @default(now())
 }

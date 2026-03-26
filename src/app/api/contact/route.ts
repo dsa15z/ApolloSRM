@@ -10,11 +10,11 @@ interface ContactData {
   message: string;
 }
 
-async function createHubSpotContact(data: ContactData) {
+async function createHubSpotContact(data: ContactData): Promise<string | undefined> {
   const apiKey = process.env.HUBSPOT_API_KEY;
   if (!apiKey) {
     console.log("HUBSPOT_API_KEY not configured — skipping HubSpot sync");
-    return;
+    return undefined;
   }
 
   const headers = {
@@ -109,9 +109,11 @@ async function createHubSpotContact(data: ContactData) {
       console.error("Failed to create HubSpot note:", noteError);
     }
   }
+
+  return contactId;
 }
 
-async function sendNotificationEmail(data: ContactData) {
+async function sendNotificationEmail(data: ContactData, hubspotContactId?: string) {
   const resendKey = process.env.RESEND_API_KEY;
   if (!resendKey) {
     console.log("RESEND_API_KEY not configured — skipping email notification");
@@ -119,6 +121,9 @@ async function sendNotificationEmail(data: ContactData) {
   }
 
   const fromAddress = process.env.EMAIL_FROM || "ApolloSRM <onboarding@resend.dev>";
+  const hubspotLink = hubspotContactId
+    ? `https://app.hubspot.com/contacts/${process.env.HUBSPOT_PORTAL_ID || ""}/record/0-1/${hubspotContactId}`
+    : null;
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -130,7 +135,7 @@ async function sendNotificationEmail(data: ContactData) {
       from: fromAddress,
       to: "sales@apollosrm.com",
       reply_to: data.email,
-      subject: `New Contact Form Submission — ${data.firstName} ${data.lastName}`,
+      subject: `🔥HOT LEAD🔥 ${data.institution || `${data.firstName} ${data.lastName}`}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: #031225; padding: 24px; border-radius: 12px 12px 0 0;">
@@ -162,6 +167,11 @@ async function sendNotificationEmail(data: ContactData) {
             <p style="margin-top: 16px; font-size: 12px; color: #9ca3af;">
               Reply directly to this email to respond to ${data.firstName}.
             </p>
+            ${hubspotLink ? `
+            <div style="margin-top: 16px; text-align: center;">
+              <a href="${hubspotLink}" style="display: inline-block; background: #2794EB; color: white; padding: 10px 24px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600;">View in HubSpot →</a>
+            </div>
+            ` : ""}
           </div>
         </div>
       `,
@@ -212,15 +222,36 @@ export async function POST(request: NextRequest) {
       data: trimmedData,
     });
 
-    // Send email notification (non-blocking)
-    sendNotificationEmail(trimmedData).catch((err) => {
-      console.error("Failed to send notification email:", err);
-    });
+    // Create/update HubSpot contact + note, store link, then send email with deep link
+    // Run in background so the form response isn't delayed
+    (async () => {
+      let hubspotContactId: string | undefined;
+      try {
+        hubspotContactId = await createHubSpotContact(trimmedData);
+      } catch (err) {
+        console.error("Failed to sync contact to HubSpot:", err);
+      }
 
-    // Create/update HubSpot contact + note (non-blocking)
-    createHubSpotContact(trimmedData).catch((err) => {
-      console.error("Failed to sync contact to HubSpot:", err);
-    });
+      // Store HubSpot link in database
+      if (hubspotContactId) {
+        const portalId = process.env.HUBSPOT_PORTAL_ID || "";
+        const link = `https://app.hubspot.com/contacts/${portalId}/record/0-1/${hubspotContactId}`;
+        try {
+          await prisma.contactSubmission.update({
+            where: { id: submission.id },
+            data: { hubspotLink: link },
+          });
+        } catch (err) {
+          console.error("Failed to store HubSpot link:", err);
+        }
+      }
+
+      try {
+        await sendNotificationEmail(trimmedData, hubspotContactId);
+      } catch (err) {
+        console.error("Failed to send notification email:", err);
+      }
+    })();
 
     return NextResponse.json(
       { success: true, id: submission.id },
