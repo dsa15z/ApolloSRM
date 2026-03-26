@@ -134,6 +134,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  try {
+
   // Ensure pgvector extension exists
   try {
     await prisma.$queryRawUnsafe(`CREATE EXTENSION IF NOT EXISTS vector`);
@@ -251,4 +253,10 @@ export async function POST(request: NextRequest) {
   const errors = results.filter((r) => r.status === "error").length;
 
   return NextResponse.json({ results, summary: { total: results.length, ready, errors } });
+  } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
+    const stack = error instanceof Error ? error.stack : undefined;
+    console.error("Reindex fatal error:", msg, stack);
+    return NextResponse.json({ error: msg, stack }, { status: 500 });
+  }
 }
