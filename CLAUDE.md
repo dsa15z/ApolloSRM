@@ -29,8 +29,7 @@ git push -u origin claude/rebuild-apollo-website-FU1xn
 ### Service Credentials
 
 ```
-# Railway account token (for Railway GraphQL API — use with backboard.railway.app/graphql/v2)
-RAILWAY_TOKEN=a29da54c-3f94-4a38-87dc-37272f2163f9
+
 
 # Railway Project
 RAILWAY_PROJECT_ID=b29775ae-b0bc-4fda-8fcf-4b80c67e4f70
